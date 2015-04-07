@@ -21,56 +21,56 @@ import org.smpp.util.TerminatingZeroNotFoundException;
  */
 public class SubmitSMResp extends Response {
 
-	private String messageId = Data.DFLT_MSGID;
+    private String messageId = Data.DFLT_MSGID;
 
-	public SubmitSMResp() {
-		super(Data.SUBMIT_SM_RESP);
-	}
+    public SubmitSMResp() {
+        super(Data.SUBMIT_SM_RESP);
+    }
 
-	public void setBody(ByteBuffer buffer)
-			throws NotEnoughDataInByteBufferException, TerminatingZeroNotFoundException, WrongLengthOfStringException, InvalidPDUException {
+    public void setBody(ByteBuffer buffer)
+            throws NotEnoughDataInByteBufferException, TerminatingZeroNotFoundException, WrongLengthOfStringException, InvalidPDUException {
 
-		if (getCommandStatus() == 0) {
-			setMessageId(buffer.removeCString());
-			return;
-		}
+        if (getCommandStatus() == 0) {
+            setMessageId(buffer.removeCString());
+            return;
+        }
 
-		if (buffer.length() > 0) {
-			// This is broken in so many implementations that it's not practical
-			// to be so pedantic about it, so we now just accept it.
-			// throw new InvalidPDUException(this,"command_status non-zero, but body was present");
-			debug.enter(this, "setBody");
-			debug.write("invalid SubmitSMResp: command_status non-zero, but body was present (ignoring body)");
-			debug.exit(this);
-			event.write("invalid SubmitSMResp sequenceNumber [" + getSequenceNumber() + "]: command_status non-zero, but body was present (ignoring body)");
-			buffer.removeBytes(buffer.length()); // discard body
-		}
-	}
+        if (buffer.length() > 0) {
+            // This is broken in so many implementations that it's not practical
+            // to be so pedantic about it, so we now just accept it.
+            // throw new InvalidPDUException(this,"command_status non-zero, but body was present");
+            debug.enter(this, "setBody");
+            debug.write("invalid SubmitSMResp: command_status non-zero, but body was present (ignoring body)");
+            debug.exit(this);
+            event.write("invalid SubmitSMResp sequenceNumber [" + getSequenceNumber() + "]: command_status non-zero, but body was present (ignoring body)");
+            buffer.removeBytes(buffer.length()); // discard body
+        }
+    }
 
-	public ByteBuffer getBody() {
-		ByteBuffer buffer = new ByteBuffer();
-		if (getCommandStatus() == 0) buffer.appendCString(messageId);
-		return buffer;
-	}
+    public ByteBuffer getBody() {
+        ByteBuffer buffer = new ByteBuffer();
+        if (getCommandStatus() == 0) buffer.appendCString(messageId);
+        return buffer;
+    }
 
-	public void setMessageId(String value) throws WrongLengthOfStringException {
-		checkString(value, Data.SM_MSGID_LEN);
-		messageId = value;
-	}
+    public void setMessageId(String value) throws WrongLengthOfStringException {
+        checkString(value, Data.SM_MSGID_LEN);
+        messageId = value;
+    }
 
-	public String getMessageId() {
-		return messageId;
-	}
+    public String getMessageId() {
+        return messageId;
+    }
 
-	public String debugString() {
-		String dbgs = "(submit_resp: ";
-		dbgs += super.debugString();
-		dbgs += getMessageId();
-		dbgs += " ";
-		dbgs += debugStringOptional();
-		dbgs += ") ";
-		return dbgs;
-	}
+    public String debugString() {
+        String dbgs = "(submit_resp: ";
+        dbgs += super.debugString();
+        dbgs += getMessageId();
+        dbgs += " ";
+        dbgs += debugStringOptional();
+        dbgs += ") ";
+        return dbgs;
+    }
 }
 /*
  * $Log: not supported by cvs2svn $
