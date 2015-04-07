@@ -17,21 +17,21 @@ import org.smpp.Data;
  * @version $Revision: 1.1 $
  */
 public class BindTransmitter extends BindRequest {
-	public BindTransmitter() {
-		super(Data.BIND_TRANSMITTER);
-	}
+    public BindTransmitter() {
+        super(Data.BIND_TRANSMITTER);
+    }
 
-	protected Response createResponse() {
-		return new BindTransmitterResp();
-	}
+    protected Response createResponse() {
+        return new BindTransmitterResp();
+    }
 
-	public boolean isTransmitter() {
-		return true;
-	}
+    public boolean isTransmitter() {
+        return true;
+    }
 
-	public boolean isReceiver() {
-		return false;
-	}
+    public boolean isReceiver() {
+        return false;
+    }
 }
 /*
  * $Log: not supported by cvs2svn $

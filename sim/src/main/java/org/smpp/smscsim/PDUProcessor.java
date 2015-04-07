@@ -10,11 +10,11 @@
  */
 package org.smpp.smscsim;
 
-import java.io.IOException;
-
 import org.smpp.pdu.PDUException;
 import org.smpp.pdu.Request;
 import org.smpp.pdu.Response;
+
+import java.io.IOException;
 
 /**
  * <code>PDUProcessor</code> is abstract class which defines interface
@@ -33,114 +33,124 @@ import org.smpp.pdu.Response;
  * @see SMSCListener
  */
 public abstract class PDUProcessor {
-	/**
-	 * The group the processor belongs to. It's good for having overall control
-	 * over specific group of processors, e.g. for those generated
-	 * for particular listener.
-	 */
-	private PDUProcessorGroup group = null;
+    /**
+     * The group the processor belongs to. It's good for having overall control
+     * over specific group of processors, e.g. for those generated
+     * for particular listener.
+     */
+    private PDUProcessorGroup group = null;
 
-	/**
-	 * If the processor is still processing, i.e. wasn't exited.
-	 * @see #exit()
-	 */
-	private boolean active = true;
+    /**
+     * If the processor is still processing, i.e. wasn't exited.
+     *
+     * @see #exit()
+     */
+    private boolean active = true;
 
-	/**
-	 * Private variables initialsed to default values.
-	 */
-	public PDUProcessor() {
-	}
+    /**
+     * Private variables initialsed to default values.
+     */
+    public PDUProcessor() {
+    }
 
-	/**
-	 * Initialises the processor with the given group.
-	 * The group is basicaly intended to be a group of active
-	 * processors.
-	 * @param group the group this processor belongs to
-	 */
-	public PDUProcessor(PDUProcessorGroup group) {
-		setGroup(group);
-	}
+    /**
+     * Initialises the processor with the given group.
+     * The group is basicaly intended to be a group of active
+     * processors.
+     *
+     * @param group the group this processor belongs to
+     */
+    public PDUProcessor(PDUProcessorGroup group) {
+        setGroup(group);
+    }
 
-	/**
-	 * Meant to process <code>request</code>s received from client.
-	 * @param request the request received from client
-	 */
-	public abstract void clientRequest(Request request);
+    /**
+     * Meant to process <code>request</code>s received from client.
+     *
+     * @param request the request received from client
+     */
+    public abstract void clientRequest(Request request);
 
-	/**
-	 * Meant to process <code>response</code>s received from client.
-	 * @param response the response received from client
-	 */
-	public abstract void clientResponse(Response response);
+    /**
+     * Meant to process <code>response</code>s received from client.
+     *
+     * @param response the response received from client
+     */
+    public abstract void clientResponse(Response response);
 
-	/**
-	 * Meant to process <code>request</code>s sent on behalf of the server.
-	 * This method is called by server and typically only sends the PDU
-	 * to the client.
-	 * @param request the request which has to be sent to client
-	 */
-	public abstract void serverRequest(Request request) throws IOException, PDUException;
+    /**
+     * Meant to process <code>request</code>s sent on behalf of the server.
+     * This method is called by server and typically only sends the PDU
+     * to the client.
+     *
+     * @param request the request which has to be sent to client
+     */
+    public abstract void serverRequest(Request request) throws IOException, PDUException;
 
-	/**
-	 * Meant to process <code>response</code>s sent on behalf of the server.
-	 * This method is called by server and typically only sends the PDU
-	 * to the client.
-	 * @param response the response which has to be sent to client
-	 */
-	public abstract void serverResponse(Response response) throws IOException, PDUException;
+    /**
+     * Meant to process <code>response</code>s sent on behalf of the server.
+     * This method is called by server and typically only sends the PDU
+     * to the client.
+     *
+     * @param response the response which has to be sent to client
+     */
+    public abstract void serverResponse(Response response) throws IOException, PDUException;
 
-	/**
-	 * Stop the processor
-	 */
-	public abstract void stop();
+    /**
+     * Stop the processor
+     */
+    public abstract void stop();
 
-	/**
-	 * Sets the group which the pdu processor belongs to.
-	 * Processor can belong to only one group.
-	 * @param g the new group for the processor
-	 */
-	public void setGroup(PDUProcessorGroup g) {
-		if (group != null) {
-			group.remove(this);
-		}
-		group = g;
-		if (group != null) {
-			group.add(this);
-		}
-	}
+    /**
+     * Sets the group which the pdu processor belongs to.
+     * Processor can belong to only one group.
+     *
+     * @param g the new group for the processor
+     */
+    public void setGroup(PDUProcessorGroup g) {
+        if (group != null) {
+            group.remove(this);
+        }
+        group = g;
+        if (group != null) {
+            group.add(this);
+        }
+    }
 
-	/**
-	 * Returns the group of this pdu processor.
-	 * @return the current group of the processor
-	 * @see #setGroup(PDUProcessorGroup)
-	 */
-	public PDUProcessorGroup getGroup() {
-		return group;
-	}
+    /**
+     * Returns the group of this pdu processor.
+     *
+     * @return the current group of the processor
+     * @see #setGroup(PDUProcessorGroup)
+     */
+    public PDUProcessorGroup getGroup() {
+        return group;
+    }
 
-	/**
-	 * Returns if this pdu processor is still active.
-	 * @return the activity status of the processor
-	 * @see #exit()
-	 */
-	public boolean isActive() {
-		return active;
-	}
+    /**
+     * Returns if this pdu processor is still active.
+     *
+     * @return the activity status of the processor
+     * @see #exit()
+     */
+    public boolean isActive() {
+        return active;
+    }
 
-	/**
-	 * Sets the processor to inactive state.
-	 * Removes the processor from the group it belonged to.
-	 * Called from <code>SMSCSession</code>.
-	 * @see SMSCSession#run()
-	 */
-	public void exit() {
-		if (group != null) {
-			group.remove(this);
-		}
-		active = false;
-		stop();
-	}
+    /**
+     * Sets the processor to inactive state.
+     * Removes the processor from the group it belonged to.
+     * Called from <code>SMSCSession</code>.
+     *
+     * @see SMSCSession#run()
+     */
+    public void exit() {
+        if (group != null) {
+            group.remove(this);
+        }
+        active = false;
+        stop();
+    }
 }
 /*
  * $Log: not supported by cvs2svn $

@@ -17,17 +17,17 @@ import org.smpp.Data;
  * @version $Revision: 1.1 $
  */
 public class IntegerOutOfRangeException extends PDUException {
-	private static final long serialVersionUID = 750364511680192335L;
+    private static final long serialVersionUID = 750364511680192335L;
 
-	public IntegerOutOfRangeException() {
-		super("The integer is lower or greater than required.");
-		setErrorCode(Data.ESME_RINVPARAM);
-	}
+    public IntegerOutOfRangeException() {
+        super("The integer is lower or greater than required.");
+        setErrorCode(Data.ESME_RINVPARAM);
+    }
 
-	public IntegerOutOfRangeException(int min, int max, int val) {
-		super("The integer is lower or greater than required: " + " min=" + min + " max=" + max + " actual=" + val + ".");
-		setErrorCode(Data.ESME_RINVPARAM);
-	}
+    public IntegerOutOfRangeException(int min, int max, int val) {
+        super("The integer is lower or greater than required: " + " min=" + min + " max=" + max + " actual=" + val + ".");
+        setErrorCode(Data.ESME_RINVPARAM);
+    }
 }
 /*
  * $Log: not supported by cvs2svn $

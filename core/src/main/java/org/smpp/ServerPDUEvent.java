@@ -20,23 +20,23 @@ import org.smpp.pdu.PDU;
  * @version $Revision: 1.2 $
  */
 public class ServerPDUEvent extends ReceivedPDUEvent {
-	private static final long serialVersionUID = 8400363453588829420L;
+    private static final long serialVersionUID = 8400363453588829420L;
 
-	/**
-	 * Creates event for provided <code>Receiver</code> and
-	 * <code>Connection</code> with the received <code>PDU</code>.
-	 */
-	public ServerPDUEvent(Receiver source, Connection connection, PDU pdu) {
-		super(source, connection, pdu);
-	}
+    /**
+     * Creates event for provided <code>Receiver</code> and
+     * <code>Connection</code> with the received <code>PDU</code>.
+     */
+    public ServerPDUEvent(Receiver source, Connection connection, PDU pdu) {
+        super(source, connection, pdu);
+    }
 
-	/**
-	 * Returns the receiver thru which was received the PDU this
-	 * event relates to.
-	 */
-	public Receiver getReceiver() {
-		return (Receiver) getSource();
-	}
+    /**
+     * Returns the receiver thru which was received the PDU this
+     * event relates to.
+     */
+    public Receiver getReceiver() {
+        return (Receiver) getSource();
+    }
 
 }
 /*

@@ -11,37 +11,39 @@
 package org.smpp.pdu;
 
 import org.smpp.Data;
-import org.smpp.util.*;
+import org.smpp.util.ByteBuffer;
+import org.smpp.util.NotEnoughDataInByteBufferException;
+import org.smpp.util.TerminatingZeroNotFoundException;
 
 /**
  * @author Logica Mobile Networks SMPP Open Source Team
  * @version $Revision: 1.1 $
  */
 public class GenericNack extends Response {
-	public GenericNack() {
-		super(Data.GENERIC_NACK);
-	}
+    public GenericNack() {
+        super(Data.GENERIC_NACK);
+    }
 
-	public GenericNack(int commandStatus, int sequenceNumber) {
-		super(Data.GENERIC_NACK);
-		setCommandStatus(commandStatus);
-		setSequenceNumber(sequenceNumber);
-	}
+    public GenericNack(int commandStatus, int sequenceNumber) {
+        super(Data.GENERIC_NACK);
+        setCommandStatus(commandStatus);
+        setSequenceNumber(sequenceNumber);
+    }
 
-	public void setBody(ByteBuffer buffer)
-		throws NotEnoughDataInByteBufferException, TerminatingZeroNotFoundException, PDUException {
-	}
+    public void setBody(ByteBuffer buffer)
+            throws NotEnoughDataInByteBufferException, TerminatingZeroNotFoundException, PDUException {
+    }
 
-	public ByteBuffer getBody() {
-		return null;
-	}
+    public ByteBuffer getBody() {
+        return null;
+    }
 
-	public String debugString() {
-		String dbgs = "(genericnack: ";
-		dbgs += super.debugString();
-		dbgs += ")";
-		return dbgs;
-	}
+    public String debugString() {
+        String dbgs = "(genericnack: ";
+        dbgs += super.debugString();
+        dbgs += ")";
+        return dbgs;
+    }
 
 }
 /*

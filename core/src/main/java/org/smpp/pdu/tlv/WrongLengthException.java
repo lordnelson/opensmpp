@@ -15,16 +15,16 @@ package org.smpp.pdu.tlv;
  * @version $Revision: 1.2 $
  */
 public class WrongLengthException extends TLVException {
-	private static final long serialVersionUID = 7935018427341458286L;
+    private static final long serialVersionUID = 7935018427341458286L;
 
-	public WrongLengthException() {
-		super("The TLV is shorter or longer than allowed.");
-	}
+    public WrongLengthException() {
+        super("The TLV is shorter or longer than allowed.");
+    }
 
-	public WrongLengthException(int min, int max, int actual) {
-		super(
-			"The TLV is shorter or longer than allowed: " + " min=" + min + " max=" + max + " actual=" + actual + ".");
-	}
+    public WrongLengthException(int min, int max, int actual) {
+        super(
+                "The TLV is shorter or longer than allowed: " + " min=" + min + " max=" + max + " actual=" + actual + ".");
+    }
 }
 /*
  * $Log: not supported by cvs2svn $

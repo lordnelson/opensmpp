@@ -26,82 +26,81 @@ package org.smpp.debug;
  * code to groups according functional areas and turn on and of these
  * areas.
  *
+ * @author Logica Mobile Networks SMPP Open Source Team
+ * @version $Revision: 1.1 $
  * @see DefaultDebug
  * @see FileDebug
  * @see org.smpp.SmppObject
  * @see org.smpp.SmppObject#setDebug(Debug)
  * @see org.smpp.SmppObject#getDebug()
- *
- * @author Logica Mobile Networks SMPP Open Source Team
- * @version $Revision: 1.1 $
  */
 public interface Debug {
-	/**
-	 * Used to enter tracing in the function in the class if the provided
-	 * group is turned on. Entering usually means that the trace lines
-	 * indentation increases and the lines get new prefix
-	 * based on the name of the class and the name of the function.
-	 */
-	public void enter(int group, Object from, String name);
+    /**
+     * Used to enter tracing in the function in the class if the provided
+     * group is turned on. Entering usually means that the trace lines
+     * indentation increases and the lines get new prefix
+     * based on the name of the class and the name of the function.
+     */
+    public void enter(int group, Object from, String name);
 
-	/**
-	 * Used to always enter tracing in the function in the class.
-	 * Entering usually means that the trace lines
-	 * indentation increases and the lines get new prefix
-	 * based on the name of the class and the name of the function.
-	 */
-	public void enter(Object from, String name);
+    /**
+     * Used to always enter tracing in the function in the class.
+     * Entering usually means that the trace lines
+     * indentation increases and the lines get new prefix
+     * based on the name of the class and the name of the function.
+     */
+    public void enter(Object from, String name);
 
-	/**
-	 * Used to write a line of trace if the provided group is turned on.
-	 */
-	public void write(int group, String msg);
+    /**
+     * Used to write a line of trace if the provided group is turned on.
+     */
+    public void write(int group, String msg);
 
-	/**
-	 * Used to always write a line of trace.
-	 */
-	public void write(String msg);
+    /**
+     * Used to always write a line of trace.
+     */
+    public void write(String msg);
 
-	/**
-	 * Used to exit tracing in the function in the class if the provided
-	 * group is turned on. Exiting usually means that the trace lines
-	 * indentation decreases and the prefix of lines is restored to
-	 * the value set before call to the corresponding enter.
-	 */
-	public void exit(int group, Object from);
+    /**
+     * Used to exit tracing in the function in the class if the provided
+     * group is turned on. Exiting usually means that the trace lines
+     * indentation decreases and the prefix of lines is restored to
+     * the value set before call to the corresponding enter.
+     */
+    public void exit(int group, Object from);
 
-	/**
-	 * Used to exit tracing in the function in the class.
-	 * Exiting usually means that the trace lines
-	 * indentation decreases and the prefix of lines is restored to
-	 * the value set before call to the corresponding enter.
-	 */
-	public void exit(Object from);
+    /**
+     * Used to exit tracing in the function in the class.
+     * Exiting usually means that the trace lines
+     * indentation decreases and the prefix of lines is restored to
+     * the value set before call to the corresponding enter.
+     */
+    public void exit(Object from);
 
-	/**
-	 * Activate the tracing, whatever it means.
-	 */
-	public void activate();
+    /**
+     * Activate the tracing, whatever it means.
+     */
+    public void activate();
 
-	/**
-	 * Activate the tracing in specified group.
-	 */
-	public void activate(int group);
+    /**
+     * Activate the tracing in specified group.
+     */
+    public void activate(int group);
 
-	/**
-	 * Deactivate the tracing, whatever it means.
-	 */
-	public void deactivate();
+    /**
+     * Deactivate the tracing, whatever it means.
+     */
+    public void deactivate();
 
-	/**
-	 * Deactivate the tracing in specified group.
-	 */
-	public void deactivate(int group);
+    /**
+     * Deactivate the tracing in specified group.
+     */
+    public void deactivate(int group);
 
-	/**
-	 * Returns if the given group is active.
-	 */
-	public boolean active(int group);
+    /**
+     * Returns if the given group is active.
+     */
+    public boolean active(int group);
 }
 /*
  * $Log: not supported by cvs2svn $

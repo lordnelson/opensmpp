@@ -8,100 +8,99 @@ import java.util.Vector;
  * of PDU subclasses, by moving the factory code to a separate class (thus
  * avoiding PDU descendants' constructors being called during class
  * initialisation). See JLS section 12.4.2 for class initialisation details.
- * 
+ * <p/>
  * Note that although this factory exists, PDUs are still created via their
  * constructors in this code base - only PDU uses this factory at time of
  * writing.
- * 
+ * <p/>
  * Performance note: a faster, unsynchronized alternative is provided for
  * possible future use (see comments in source code), although its use may be
  * limited to Java >= 5.0.
- * 
+ *
  * @author Paolo Campanella, BulkSMS.com.
- * 
  */
 public class PDUFactory {
-	/**
-	 * Performance note: pduList should be "effectively immutable"
-	 * as defined by Brian Goetz in "Java Concurrency in Practice" sec.
-	 * 3.5.4, and should thus be safe to convert to an unsynchronized
-	 * List (or Map). This would allow unsynchronized access. However,
-	 * the mention of "works only in Java 5.0 and later" for a similar
-	 * situation here:
-	 * http://www.ibm.com/developerworks/java/library/j-hashmap.html
-	 * made me avoid making this change, to play it safe.
-	 * 
-	 *  An unsynchronized alternative is provided below, commented
-	 *  out, for a possible future case where support for Java < 5.0
-	 *  is no longer required.
-	 */
-	private static final Vector<PDU> pduList = new Vector<PDU>(30, 4);
-	/**
-	 * Create a list of instances of classes which can represent a PDU.
-	 * This list is used in <code>createPDU</code> to create a PDU
-	 * from a binary buffer.
-	 */
-	static {
-	 	pduList.add(new BindTransmitter());
-		pduList.add(new BindTransmitterResp());
-		pduList.add(new BindReceiver());
-		pduList.add(new BindReceiverResp());
-		pduList.add(new BindTransciever());
-		pduList.add(new BindTranscieverResp());
-		pduList.add(new Unbind());
-		pduList.add(new UnbindResp());
-		pduList.add(new Outbind());
-		pduList.add(new SubmitSM());
-		pduList.add(new SubmitSMResp());
-		pduList.add(new SubmitMultiSM());
-		pduList.add(new SubmitMultiSMResp());
-		pduList.add(new DeliverSM());
-		pduList.add(new DeliverSMResp());
-		pduList.add(new DataSM());
-		pduList.add(new DataSMResp());
-		pduList.add(new QuerySM());
-		pduList.add(new QuerySMResp());
-		pduList.add(new CancelSM());
-		pduList.add(new CancelSMResp());
-		pduList.add(new ReplaceSM());
-		pduList.add(new ReplaceSMResp());
-		pduList.add(new EnquireLink());
-		pduList.add(new EnquireLinkResp());
-		pduList.add(new AlertNotification());
-		pduList.add(new GenericNack());
-	}
+    /**
+     * Performance note: pduList should be "effectively immutable"
+     * as defined by Brian Goetz in "Java Concurrency in Practice" sec.
+     * 3.5.4, and should thus be safe to convert to an unsynchronized
+     * List (or Map). This would allow unsynchronized access. However,
+     * the mention of "works only in Java 5.0 and later" for a similar
+     * situation here:
+     * http://www.ibm.com/developerworks/java/library/j-hashmap.html
+     * made me avoid making this change, to play it safe.
+     * <p/>
+     * An unsynchronized alternative is provided below, commented
+     * out, for a possible future case where support for Java < 5.0
+     * is no longer required.
+     */
+    private static final Vector<PDU> pduList = new Vector<PDU>(30, 4);
 
-	/**
-	 * 
-	 * @param commandId
-	 * @return A new instance of PDU of the type requested, or null if commandId
-	 *         is unknown.
-	 */
-	public static final PDU createPDU(int commandId) {
-		int size = pduList.size();
-		PDU pdu = null;
-		PDU newInstance = null;
+    /**
+     * Create a list of instances of classes which can represent a PDU.
+     * This list is used in <code>createPDU</code> to create a PDU
+     * from a binary buffer.
+     */
+    static {
+        pduList.add(new BindTransmitter());
+        pduList.add(new BindTransmitterResp());
+        pduList.add(new BindReceiver());
+        pduList.add(new BindReceiverResp());
+        pduList.add(new BindTransciever());
+        pduList.add(new BindTranscieverResp());
+        pduList.add(new Unbind());
+        pduList.add(new UnbindResp());
+        pduList.add(new Outbind());
+        pduList.add(new SubmitSM());
+        pduList.add(new SubmitSMResp());
+        pduList.add(new SubmitMultiSM());
+        pduList.add(new SubmitMultiSMResp());
+        pduList.add(new DeliverSM());
+        pduList.add(new DeliverSMResp());
+        pduList.add(new DataSM());
+        pduList.add(new DataSMResp());
+        pduList.add(new QuerySM());
+        pduList.add(new QuerySMResp());
+        pduList.add(new CancelSM());
+        pduList.add(new CancelSMResp());
+        pduList.add(new ReplaceSM());
+        pduList.add(new ReplaceSMResp());
+        pduList.add(new EnquireLink());
+        pduList.add(new EnquireLinkResp());
+        pduList.add(new AlertNotification());
+        pduList.add(new GenericNack());
+    }
 
-		for (int i = 0; i < size; i++) {
-			pdu = (PDU)pduList.get(i);
-			if (pdu != null) {
-				if (pdu.getCommandId() == commandId) {
-					try {
-						newInstance = (PDU) (pdu.getClass().newInstance());
-					} catch (IllegalAccessException e) {
-						// can't be illegal access, we initialised
-						// the list with instances of our classes
-					} catch (InstantiationException e) {
-						// can't be instantiation as we already instantiated
-						// at least once, for both exception see help
-						// for Class.newInstance()
-					}
-					return newInstance;
-				}
-			}
-		}
-		return null;
-	}
+    /**
+     * @param commandId
+     * @return A new instance of PDU of the type requested, or null if commandId
+     * is unknown.
+     */
+    public static final PDU createPDU(int commandId) {
+        int size = pduList.size();
+        PDU pdu = null;
+        PDU newInstance = null;
+
+        for (int i = 0; i < size; i++) {
+            pdu = (PDU) pduList.get(i);
+            if (pdu != null) {
+                if (pdu.getCommandId() == commandId) {
+                    try {
+                        newInstance = (PDU) (pdu.getClass().newInstance());
+                    } catch (IllegalAccessException e) {
+                        // can't be illegal access, we initialised
+                        // the list with instances of our classes
+                    } catch (InstantiationException e) {
+                        // can't be instantiation as we already instantiated
+                        // at least once, for both exception see help
+                        // for Class.newInstance()
+                    }
+                    return newInstance;
+                }
+            }
+        }
+        return null;
+    }
 }
 
 /*

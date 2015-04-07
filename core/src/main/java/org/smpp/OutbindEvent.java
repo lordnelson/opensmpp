@@ -30,30 +30,30 @@ import org.smpp.pdu.Outbind;
 */
 
 public class OutbindEvent extends ReceivedPDUEvent {
-	private static final long serialVersionUID = 1808913846085130877L;
+    private static final long serialVersionUID = 1808913846085130877L;
 
-	/**
-	 * Construct event for outbind pdu received over conection
-	 * belonging to the outbind receiver.
-	 */
-	public OutbindEvent(OutbindReceiver source, Connection connection, Outbind outbindPDU) {
-		super(source, connection, outbindPDU);
-	}
+    /**
+     * Construct event for outbind pdu received over conection
+     * belonging to the outbind receiver.
+     */
+    public OutbindEvent(OutbindReceiver source, Connection connection, Outbind outbindPDU) {
+        super(source, connection, outbindPDU);
+    }
 
-	/**
-	 * Returns the outbind receiver thru which was received the outbind pdu
-	 * this event relates to.
-	 */
-	public OutbindReceiver getReceiver() {
-		return (OutbindReceiver) getSource();
-	}
+    /**
+     * Returns the outbind receiver thru which was received the outbind pdu
+     * this event relates to.
+     */
+    public OutbindReceiver getReceiver() {
+        return (OutbindReceiver) getSource();
+    }
 
-	/**
-	 * Returns the outbind pdu.
-	 */
-	public Outbind getOutbindPDU() {
-		return (Outbind) getPDU();
-	}
+    /**
+     * Returns the outbind pdu.
+     */
+    public Outbind getOutbindPDU() {
+        return (Outbind) getPDU();
+    }
 
 }
 /*

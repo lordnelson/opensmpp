@@ -10,15 +10,16 @@
  */
 package org.smpp.smscsim;
 
-import java.io.IOException;
-
-import org.smpp.*;
+import org.smpp.Data;
+import org.smpp.SmppObject;
 import org.smpp.debug.Debug;
 import org.smpp.debug.Event;
 import org.smpp.debug.FileLog;
 import org.smpp.pdu.*;
 import org.smpp.smscsim.util.Record;
 import org.smpp.smscsim.util.Table;
+
+import java.io.IOException;
 
 /**
  * Class <code>SimulatorPDUProcessor</code> gets the <code>Request</code>
@@ -102,9 +103,10 @@ public class SimulatorPDUProcessor extends PDUProcessor {
 	 * Constructs the PDU processor with given session,
 	 * message store for storing of the messages and a table of
 	 * users for authentication.
-	 * @param session the sessin this PDU processor works for
+	 *
+	 * @param session      the sessin this PDU processor works for
 	 * @param messageStore the store for messages received from the client
-	 * @param users the list of users used for authenticating of the client
+	 * @param users        the list of users used for authenticating of the client
 	 */
 	public SimulatorPDUProcessor(SMSCSession session, ShortMessageStore messageStore, Table users) {
 		this.session = session;
@@ -120,6 +122,7 @@ public class SimulatorPDUProcessor extends PDUProcessor {
 	 * of the <code>request</code> creates the proper response.
 	 * The first request must be a <code>BindRequest</code> with the correct
 	 * parameters.
+	 *
 	 * @param request the request from client
 	 */
 	public void clientRequest(Request request) {
@@ -131,8 +134,8 @@ public class SimulatorPDUProcessor extends PDUProcessor {
 			display("client request: " + request.debugString());
 			if (!bound) { // the first PDU must be bound request
 				if (commandId == Data.BIND_TRANSMITTER
-					|| commandId == Data.BIND_RECEIVER
-					|| commandId == Data.BIND_TRANSCEIVER) {
+						|| commandId == Data.BIND_RECEIVER
+						|| commandId == Data.BIND_TRANSCEIVER) {
 					commandStatus = checkIdentity((BindRequest) request);
 					if (commandStatus == 0) { // authenticated
 						// firstly generate proper bind response
@@ -172,53 +175,53 @@ public class SimulatorPDUProcessor extends PDUProcessor {
 				if (request.canResponse()) {
 					response = request.getResponse();
 					switch (commandId) { // for selected PDUs do extra steps
-						case Data.SUBMIT_SM :
+						case Data.SUBMIT_SM:
 							SubmitSMResp submitResponse = (SubmitSMResp) response;
 							submitResponse.setMessageId(assignMessageId());
 							display("putting message into message store");
 							messageStore.submit((SubmitSM) request, submitResponse.getMessageId(), systemId);
 							byte registeredDelivery =
-								(byte) (((SubmitSM) request).getRegisteredDelivery() & Data.SM_SMSC_RECEIPT_MASK);
+									(byte) (((SubmitSM) request).getRegisteredDelivery() & Data.SM_SMSC_RECEIPT_MASK);
 							if (registeredDelivery == Data.SM_SMSC_RECEIPT_REQUESTED) {
 								deliveryInfoSender.submit(this, (SubmitSM) request, submitResponse.getMessageId());
 							}
 							break;
 
-						case Data.SUBMIT_MULTI :
+						case Data.SUBMIT_MULTI:
 							SubmitMultiSMResp submitMultiResponse = (SubmitMultiSMResp) response;
 							submitMultiResponse.setMessageId(assignMessageId());
 							break;
 
-						case Data.DELIVER_SM :
+						case Data.DELIVER_SM:
 							DeliverSMResp deliverResponse = (DeliverSMResp) response;
 							deliverResponse.setMessageId(assignMessageId());
 							break;
 
-						case Data.DATA_SM :
+						case Data.DATA_SM:
 							DataSMResp dataResponse = (DataSMResp) response;
 							dataResponse.setMessageId(assignMessageId());
 							break;
 
-						case Data.QUERY_SM :
+						case Data.QUERY_SM:
 							QuerySM queryRequest = (QuerySM) request;
 							QuerySMResp queryResponse = (QuerySMResp) response;
 							display("querying message in message store");
 							queryResponse.setMessageId(queryRequest.getMessageId());
 							break;
 
-						case Data.CANCEL_SM :
+						case Data.CANCEL_SM:
 							CancelSM cancelRequest = (CancelSM) request;
 							display("cancelling message in message store");
 							messageStore.cancel(cancelRequest.getMessageId());
 							break;
 
-						case Data.REPLACE_SM :
+						case Data.REPLACE_SM:
 							ReplaceSM replaceRequest = (ReplaceSM) request;
 							display("replacing message in message store");
 							messageStore.replace(replaceRequest.getMessageId(), replaceRequest.getShortMessage());
 							break;
 
-						case Data.UNBIND :
+						case Data.UNBIND:
 							// do nothing, just respond and after sending
 							// the response stop the session
 							break;
@@ -242,6 +245,7 @@ public class SimulatorPDUProcessor extends PDUProcessor {
 
 	/**
 	 * Processes the response received from the client.
+	 *
 	 * @param response the response from client
 	 */
 	public void clientResponse(Response response) {
@@ -252,6 +256,7 @@ public class SimulatorPDUProcessor extends PDUProcessor {
 	/**
 	 * Sends a request to a client. For example, it can be used to send
 	 * delivery info to the client.
+	 *
 	 * @param request the request to be sent to the client
 	 */
 	public void serverRequest(Request request) throws IOException, PDUException {
@@ -262,14 +267,17 @@ public class SimulatorPDUProcessor extends PDUProcessor {
 
 	/**
 	 * Send the response created by <code>clientRequest</code> to the client.
+	 *
 	 * @param response the response to send to client
 	 */
 	public void serverResponse(Response response) throws IOException, PDUException {
-		synchronized(this) {
+		synchronized (this) {
 			try {
 				// Sleep for 300 ms sending reply to more accuratly simulate smsc
 				this.wait(300);
-			} catch( Exception e ) { e.printStackTrace(); }
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 		debug.write("SimulatorPDUProcessor.serverResponse() " + response.debugString());
@@ -283,9 +291,10 @@ public class SimulatorPDUProcessor extends PDUProcessor {
 	 * <code>SimulatorPDUProcessor</code>. If the authentication fails,
 	 * i.e. if either the user isn't found or the password is incorrect,
 	 * the function returns proper status code.
+	 *
 	 * @param request the bind request as received from the client
 	 * @return status code of the authentication; ESME_ROK if authentication
-	 *         passed
+	 * passed
 	 */
 	private int checkIdentity(BindRequest request) {
 		int commandStatus = Data.ESME_ROK;
@@ -305,7 +314,7 @@ public class SimulatorPDUProcessor extends PDUProcessor {
 			} else {
 				commandStatus = Data.ESME_RINVPASWD;
 				debug.write(
-					"system id " + systemId + " not authenticated. " + "Password attribute not found in users file");
+						"system id " + systemId + " not authenticated. " + "Password attribute not found in users file");
 				display("not authenticated " + systemId + " -- no password for user.");
 			}
 		} else {
@@ -318,6 +327,7 @@ public class SimulatorPDUProcessor extends PDUProcessor {
 
 	/**
 	 * Creates a unique message_id for each sms sent by a client to the smsc.
+	 *
 	 * @return unique message id
 	 */
 	private String assignMessageId() {
@@ -329,6 +339,7 @@ public class SimulatorPDUProcessor extends PDUProcessor {
 
 	/**
 	 * Returns the session this PDU processor works for.
+	 *
 	 * @return the session of this PDU processor
 	 */
 	public SMSCSession getSession() {
@@ -338,6 +349,7 @@ public class SimulatorPDUProcessor extends PDUProcessor {
 	/**
 	 * Returns the system id of the client for whose is this PDU processor
 	 * processing PDUs.
+	 *
 	 * @return system id of client
 	 */
 	public String getSystemId() {

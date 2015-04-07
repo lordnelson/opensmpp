@@ -11,8 +11,10 @@
 package org.smpp.pdu;
 
 import org.smpp.Data;
-import org.smpp.pdu.tlv.*;
-import org.smpp.util.*;
+import org.smpp.pdu.tlv.TLVByte;
+import org.smpp.util.ByteBuffer;
+import org.smpp.util.NotEnoughDataInByteBufferException;
+import org.smpp.util.TerminatingZeroNotFoundException;
 
 /**
  * @author Logica Mobile Networks SMPP Open Source Team
@@ -20,69 +22,69 @@ import org.smpp.util.*;
  */
 public abstract class BindResponse extends Response {
 
-	// mandatory parameters
-	private String systemId = Data.DFLT_SYSID;
+    // mandatory parameters
+    private String systemId = Data.DFLT_SYSID;
 
-	// optional parameters
-	private TLVByte scInterfaceVersion = new TLVByte(Data.OPT_PAR_SC_IF_VER);
+    // optional parameters
+    private TLVByte scInterfaceVersion = new TLVByte(Data.OPT_PAR_SC_IF_VER);
 
-	public BindResponse(int commandId) {
-		super(commandId);
+    public BindResponse(int commandId) {
+        super(commandId);
 
-		registerOptional(scInterfaceVersion);
-	}
+        registerOptional(scInterfaceVersion);
+    }
 
-	public void setBody(ByteBuffer buffer)
-		throws NotEnoughDataInByteBufferException, TerminatingZeroNotFoundException, PDUException {
-		if (getCommandStatus() == 0) { // ok => have body
-			setSystemId(buffer.removeCString());
-		}
-	}
+    public void setBody(ByteBuffer buffer)
+            throws NotEnoughDataInByteBufferException, TerminatingZeroNotFoundException, PDUException {
+        if (getCommandStatus() == 0) { // ok => have body
+            setSystemId(buffer.removeCString());
+        }
+    }
 
-	public ByteBuffer getBody() {
-		ByteBuffer buffer = new ByteBuffer();
-		//if (getCommandStatus() == 0) { // ok => append body
-			buffer.appendCString(getSystemId());
-		//}
-		return buffer;
-	}
+    public ByteBuffer getBody() {
+        ByteBuffer buffer = new ByteBuffer();
+        //if (getCommandStatus() == 0) { // ok => append body
+        buffer.appendCString(getSystemId());
+        //}
+        return buffer;
+    }
 
-	public void setSystemId(String sysId) throws WrongLengthOfStringException {
-		checkString(sysId, Data.SM_SYSID_LEN);
-		systemId = sysId;
-	}
+    public void setSystemId(String sysId) throws WrongLengthOfStringException {
+        checkString(sysId, Data.SM_SYSID_LEN);
+        systemId = sysId;
+    }
 
-	public String getSystemId() {
-		return systemId;
-	}
+    public String getSystemId() {
+        return systemId;
+    }
 
-	public boolean hasScInterfaceVersion() {
-		return scInterfaceVersion.hasValue();
-	}
+    public boolean hasScInterfaceVersion() {
+        return scInterfaceVersion.hasValue();
+    }
 
-	public void setScInterfaceVersion(byte value) {
-		scInterfaceVersion.setValue(value);
-	}
+    public void setScInterfaceVersion(byte value) {
+        scInterfaceVersion.setValue(value);
+    }
 
-	public byte getScInterfaceVersion() throws ValueNotSetException {
-		return scInterfaceVersion.getValue();
-	}
+    public byte getScInterfaceVersion() throws ValueNotSetException {
+        return scInterfaceVersion.getValue();
+    }
 
-	public String debugString() {
-		String dbgs = "(bindresp: ";
-		dbgs += super.debugString();
-		dbgs += getSystemId();
-		if (hasScInterfaceVersion()) {
-			dbgs += " ";
-			try {
-				dbgs += getScInterfaceVersion();
-			} catch (Exception e) {
-				// don't want to throw exception in debug code!
-			}
-		}
-		dbgs += ") ";
-		return dbgs;
-	}
+    public String debugString() {
+        String dbgs = "(bindresp: ";
+        dbgs += super.debugString();
+        dbgs += getSystemId();
+        if (hasScInterfaceVersion()) {
+            dbgs += " ";
+            try {
+                dbgs += getScInterfaceVersion();
+            } catch (Exception e) {
+                // don't want to throw exception in debug code!
+            }
+        }
+        dbgs += ") ";
+        return dbgs;
+    }
 }
 /*
  * $Log: not supported by cvs2svn $

@@ -14,7 +14,7 @@ package org.smpp.debug;
  * The interface <code>Event</code> is an interface to application specific
  * event trace facility. It is used in the library to notify about
  * like exception. Implementors are expected either to use one of the
- * predefined implementations <code>DefaultEvent</code> or 
+ * predefined implementations <code>DefaultEvent</code> or
  * <code>FileEvent</code> or that the will write an implementation
  * which will adapt this interface to their legacy tracing facility.
  *
@@ -22,17 +22,25 @@ package org.smpp.debug;
  * @version $Revision: 1.1 $
  */
 public interface Event {
-	/** Sends a message to the event object. */
-	public void write(String msg);
+    /**
+     * Sends a message to the event object.
+     */
+    public void write(String msg);
 
-	/** Sends an information about exception to the event object. */
-	public void write(Exception e, String msg);
+    /**
+     * Sends an information about exception to the event object.
+     */
+    public void write(Exception e, String msg);
 
-	/** Activates the event tracing. */
-	public void activate();
+    /**
+     * Activates the event tracing.
+     */
+    public void activate();
 
-	/** Deactivates the event tracing. */
-	public void deactivate();
+    /**
+     * Deactivates the event tracing.
+     */
+    public void deactivate();
 }
 /*
  * $Log: not supported by cvs2svn $

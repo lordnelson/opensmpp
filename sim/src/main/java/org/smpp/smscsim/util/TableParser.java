@@ -10,8 +10,8 @@
  */
 package org.smpp.smscsim.util;
 
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
@@ -22,17 +22,19 @@ import java.io.OutputStream;
  * @version $Revision: 1.1 $
  */
 public interface TableParser {
-	/**
-	 * Should write the table to the output stream.
-	 * @param os the output stream to write to
-	 */
-	public void compose(OutputStream os) throws IOException;
+    /**
+     * Should write the table to the output stream.
+     *
+     * @param os the output stream to write to
+     */
+    public void compose(OutputStream os) throws IOException;
 
-	/**
-	 * Should read the table from the input stream.
-	 * @param is the stream to read the table from
-	 */
-	public void parse(InputStream is) throws IOException;
+    /**
+     * Should read the table from the input stream.
+     *
+     * @param is the stream to read the table from
+     */
+    public void parse(InputStream is) throws IOException;
 }
 /*
  * $Log: not supported by cvs2svn $

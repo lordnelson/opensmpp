@@ -17,31 +17,31 @@ import org.smpp.Data;
  * @version $Revision: 1.2 $
  */
 public class InvalidPDUException extends PDUException {
-	private static final long serialVersionUID = -6985061862208729984L;
-	private Exception underlyingException = null;
+    private static final long serialVersionUID = -6985061862208729984L;
+    private Exception underlyingException = null;
 
-	public InvalidPDUException(PDU pdu, Exception e) {
-		super(pdu, e);
-		underlyingException = e;
-		setErrorCode(Data.ESME_RINVMSGLEN);
-	}
+    public InvalidPDUException(PDU pdu, Exception e) {
+        super(pdu, e);
+        underlyingException = e;
+        setErrorCode(Data.ESME_RINVMSGLEN);
+    }
 
-	public InvalidPDUException(PDU pdu, String s) {
-		super(pdu, s);
-		setErrorCode(Data.ESME_RINVMSGLEN);
-	}
+    public InvalidPDUException(PDU pdu, String s) {
+        super(pdu, s);
+        setErrorCode(Data.ESME_RINVMSGLEN);
+    }
 
-	public String toString() {
-		String s = super.toString();
-		if (underlyingException != null) {
-			s += "\nUnderlying exception: " + underlyingException.toString();
-		}
-		return s;
-	}
+    public String toString() {
+        String s = super.toString();
+        if (underlyingException != null) {
+            s += "\nUnderlying exception: " + underlyingException.toString();
+        }
+        return s;
+    }
 
-	public Exception getException() {
-		return underlyingException;
-	}
+    public Exception getException() {
+        return underlyingException;
+    }
 }
 /*
  * $Log: not supported by cvs2svn $

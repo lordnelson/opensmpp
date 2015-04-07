@@ -11,79 +11,82 @@
 package org.smpp.pdu;
 
 import org.smpp.Data;
-import org.smpp.util.*;
+import org.smpp.util.ByteBuffer;
+import org.smpp.util.NotEnoughDataInByteBufferException;
+import org.smpp.util.TerminatingZeroNotFoundException;
 
 /**
  * @author Logica Mobile Networks SMPP Open Source Team
  * @version $Revision: 1.1 $
  */
 public class Outbind extends Request {
-	private String systemId = Data.DFLT_SYSID;
-	private String password = Data.DFLT_PASS;
+    private String systemId = Data.DFLT_SYSID;
+    private String password = Data.DFLT_PASS;
 
-	public Outbind() {
-		super(Data.OUTBIND);
-	}
+    public Outbind() {
+        super(Data.OUTBIND);
+    }
 
-	protected Response createResponse() {
-		return null;
-	}
+    protected Response createResponse() {
+        return null;
+    }
 
-	public boolean canResponse() {
-		return false;
-	}
+    public boolean canResponse() {
+        return false;
+    }
 
-	public void setBody(ByteBuffer buffer)
-		throws NotEnoughDataInByteBufferException, TerminatingZeroNotFoundException, PDUException {
-		setSystemId(buffer.removeCString());
-		setPassword(buffer.removeCString());
-	}
+    public void setBody(ByteBuffer buffer)
+            throws NotEnoughDataInByteBufferException, TerminatingZeroNotFoundException, PDUException {
+        setSystemId(buffer.removeCString());
+        setPassword(buffer.removeCString());
+    }
 
-	public ByteBuffer getBody() {
-		ByteBuffer buffer = new ByteBuffer();
-		buffer.appendCString(getSystemId());
-		buffer.appendCString(getPassword());
-		return buffer;
-	}
+    public ByteBuffer getBody() {
+        ByteBuffer buffer = new ByteBuffer();
+        buffer.appendCString(getSystemId());
+        buffer.appendCString(getPassword());
+        return buffer;
+    }
 
-	public void setSystemId(String sysId) throws WrongLengthOfStringException {
-		checkString(sysId, Data.SM_SYSID_LEN);
-		systemId = sysId;
-	}
+    public void setSystemId(String sysId) throws WrongLengthOfStringException {
+        checkString(sysId, Data.SM_SYSID_LEN);
+        systemId = sysId;
+    }
 
-	public void setPassword(String pwd) throws WrongLengthOfStringException {
-		checkString(pwd, Data.SM_PASS_LEN);
-		password = pwd;
-	}
+    public void setPassword(String pwd) throws WrongLengthOfStringException {
+        checkString(pwd, Data.SM_PASS_LEN);
+        password = pwd;
+    }
 
-	public String getSystemId() {
-		return systemId;
-	}
-	public String getPassword() {
-		return password;
-	}
+    public String getSystemId() {
+        return systemId;
+    }
 
-	public String debugString() {
-		String dbgs = "(outbind: ";
-		dbgs += super.debugString();
-		dbgs += getSystemId();
-		dbgs += " ";
-		dbgs += getPassword();
-		dbgs += ")";
-		return dbgs;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	// special equals() for outbind: as we don't care
-	// about outbind's sequence number, any outbind is equal to
-	// any other outbind, sort of :-)
-	public boolean equals(Object object) {
-		if (object == null) {
-			return false;
-		} else {
-			PDU pdu = (PDU) object;
-			return pdu.getCommandId() == getCommandId();
-		}
-	}
+    public String debugString() {
+        String dbgs = "(outbind: ";
+        dbgs += super.debugString();
+        dbgs += getSystemId();
+        dbgs += " ";
+        dbgs += getPassword();
+        dbgs += ")";
+        return dbgs;
+    }
+
+    // special equals() for outbind: as we don't care
+    // about outbind's sequence number, any outbind is equal to
+    // any other outbind, sort of :-)
+    public boolean equals(Object object) {
+        if (object == null) {
+            return false;
+        } else {
+            PDU pdu = (PDU) object;
+            return pdu.getCommandId() == getCommandId();
+        }
+    }
 
 }
 /*

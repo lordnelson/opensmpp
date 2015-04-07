@@ -17,9 +17,9 @@ import org.smpp.Data;
  * @version $Revision: 1.1 $
  */
 public class BindTranscieverResp extends BindResponse {
-	public BindTranscieverResp() {
-		super(Data.BIND_TRANSCEIVER_RESP);
-	}
+    public BindTranscieverResp() {
+        super(Data.BIND_TRANSCEIVER_RESP);
+    }
 }
 /*
  * $Log: not supported by cvs2svn $

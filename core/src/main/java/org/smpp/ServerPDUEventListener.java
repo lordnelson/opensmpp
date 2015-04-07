@@ -34,13 +34,14 @@ import java.util.EventListener;
  * @see Session#setServerPDUEventListener(ServerPDUEventListener)
  */
 public interface ServerPDUEventListener extends EventListener {
-	/**
-	 * Meant to process PDUs received from the SMSC.
-	 * This method is called by the <code>Receiver</code> whenever a
-	 * PDU is received from the SMSC.
-	 * @param event the event received from the SMSC
-	 */
-	public abstract void handleEvent(ServerPDUEvent event);
+    /**
+     * Meant to process PDUs received from the SMSC.
+     * This method is called by the <code>Receiver</code> whenever a
+     * PDU is received from the SMSC.
+     *
+     * @param event the event received from the SMSC
+     */
+    public abstract void handleEvent(ServerPDUEvent event);
 
 }
 /*

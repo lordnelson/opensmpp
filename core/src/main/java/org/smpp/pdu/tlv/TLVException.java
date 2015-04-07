@@ -17,15 +17,15 @@ import org.smpp.pdu.PDUException;
  * @version $Revision: 1.2 $
  */
 public class TLVException extends PDUException {
-	private static final long serialVersionUID = -6659626685298184198L;
+    private static final long serialVersionUID = -6659626685298184198L;
 
-	public TLVException() {
-		super();
-	}
+    public TLVException() {
+        super();
+    }
 
-	public TLVException(String s) {
-		super(s);
-	}
+    public TLVException(String s) {
+        super(s);
+    }
 }
 /*
  * $Log: not supported by cvs2svn $

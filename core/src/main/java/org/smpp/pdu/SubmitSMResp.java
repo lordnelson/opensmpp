@@ -11,8 +11,9 @@
 package org.smpp.pdu;
 
 import org.smpp.Data;
-import org.smpp.pdu.Response;
-import org.smpp.util.*;
+import org.smpp.util.ByteBuffer;
+import org.smpp.util.NotEnoughDataInByteBufferException;
+import org.smpp.util.TerminatingZeroNotFoundException;
 
 /**
  * @author Logica Mobile Networks SMPP Open Source Team
@@ -27,7 +28,7 @@ public class SubmitSMResp extends Response {
 	}
 
 	public void setBody(ByteBuffer buffer)
-		throws NotEnoughDataInByteBufferException, TerminatingZeroNotFoundException, WrongLengthOfStringException, InvalidPDUException {
+			throws NotEnoughDataInByteBufferException, TerminatingZeroNotFoundException, WrongLengthOfStringException, InvalidPDUException {
 
 		if (getCommandStatus() == 0) {
 			setMessageId(buffer.removeCString());
@@ -38,10 +39,10 @@ public class SubmitSMResp extends Response {
 			// This is broken in so many implementations that it's not practical
 			// to be so pedantic about it, so we now just accept it.
 			// throw new InvalidPDUException(this,"command_status non-zero, but body was present");
-			debug.enter(this,"setBody");
+			debug.enter(this, "setBody");
 			debug.write("invalid SubmitSMResp: command_status non-zero, but body was present (ignoring body)");
 			debug.exit(this);
-			event.write("invalid SubmitSMResp sequenceNumber ["+getSequenceNumber()+"]: command_status non-zero, but body was present (ignoring body)");
+			event.write("invalid SubmitSMResp sequenceNumber [" + getSequenceNumber() + "]: command_status non-zero, but body was present (ignoring body)");
 			buffer.removeBytes(buffer.length()); // discard body
 		}
 	}

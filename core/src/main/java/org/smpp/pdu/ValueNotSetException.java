@@ -20,11 +20,11 @@ import org.smpp.Data;
  * @version $Revision: 1.1 $
  */
 public class ValueNotSetException extends PDUException {
-	private static final long serialVersionUID = -4595064103809398438L;
+    private static final long serialVersionUID = -4595064103809398438L;
 
-	public ValueNotSetException() {
-		setErrorCode(Data.ESME_RMISSINGOPTPARAM);
-	}
+    public ValueNotSetException() {
+        setErrorCode(Data.ESME_RMISSINGOPTPARAM);
+    }
 }
 /*
  * $Log: not supported by cvs2svn $

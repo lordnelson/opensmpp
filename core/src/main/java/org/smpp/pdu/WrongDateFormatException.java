@@ -17,20 +17,20 @@ import org.smpp.Data;
  * @version $Revision: 1.1 $
  */
 public class WrongDateFormatException extends PDUException {
-	private static final long serialVersionUID = 5831937612139037591L;
+    private static final long serialVersionUID = 5831937612139037591L;
 
-	public WrongDateFormatException() {
-		super("Date must be either null or of format YYMMDDhhmmsstnnp");
-		setErrorCode(Data.ESME_RINVPARAM);
-	}
+    public WrongDateFormatException() {
+        super("Date must be either null or of format YYMMDDhhmmsstnnp");
+        setErrorCode(Data.ESME_RINVPARAM);
+    }
 
-	public WrongDateFormatException(String dateStr) {
-		super("Date must be either null or of format YYMMDDhhmmsstnnp and not " + dateStr + ".");
-		setErrorCode(Data.ESME_RINVPARAM);
-	}
+    public WrongDateFormatException(String dateStr) {
+        super("Date must be either null or of format YYMMDDhhmmsstnnp and not " + dateStr + ".");
+        setErrorCode(Data.ESME_RINVPARAM);
+    }
 
-	public WrongDateFormatException(String dateStr, String msg) {
-		super("Invalid date " + dateStr + ": " + msg);
-		setErrorCode(Data.ESME_RINVPARAM);
-	}
+    public WrongDateFormatException(String dateStr, String msg) {
+        super("Invalid date " + dateStr + ": " + msg);
+        setErrorCode(Data.ESME_RINVPARAM);
+    }
 }

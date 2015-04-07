@@ -20,60 +20,63 @@ import org.smpp.SmppException;
  * @version $Revision: 1.2 $
  */
 public class PDUException extends SmppException {
-	private static final long serialVersionUID = 5174606627714918071L;
-	private transient PDU pdu = null;
-	private transient int errorCode = Data.ESME_RUNKNOWNERR;
-	
-	public PDUException() {
-	}
+    private static final long serialVersionUID = 5174606627714918071L;
+    private transient PDU pdu = null;
+    private transient int errorCode = Data.ESME_RUNKNOWNERR;
 
-	public PDUException(PDU pdu) {
-		setPDU(pdu);
-	}
+    public PDUException() {
+    }
 
-	public PDUException(String s) {
-		super(s);
-	}
+    public PDUException(PDU pdu) {
+        setPDU(pdu);
+    }
 
-	public PDUException(PDU pdu, String s) {
-		super(s);
-		setPDU(pdu);
-	}
+    public PDUException(String s) {
+        super(s);
+    }
 
-	public PDUException(PDU pdu, Exception e) {
-		super(e);
-		setPDU(pdu);
-	}
+    public PDUException(PDU pdu, String s) {
+        super(s);
+        setPDU(pdu);
+    }
 
-	public PDUException(PDU pdu, String s, Exception e) {
-		super(s, e);
-		setPDU(pdu);
-	}
+    public PDUException(PDU pdu, Exception e) {
+        super(e);
+        setPDU(pdu);
+    }
 
-	public String toString() {
-		String s = super.toString();
-		if (pdu != null) {
-			s += "\nPDU debug string: " + pdu.debugString();
-		}
-		return s;
-	}
+    public PDUException(PDU pdu, String s, Exception e) {
+        super(s, e);
+        setPDU(pdu);
+    }
 
-	public void setPDU(PDU pdu) {
-		this.pdu = pdu;
-	}
-	public PDU getPDU() {
-		return pdu;
-	}
-	public boolean hasPDU() {
-		return pdu != null;
-	}
+    public String toString() {
+        String s = super.toString();
+        if (pdu != null) {
+            s += "\nPDU debug string: " + pdu.debugString();
+        }
+        return s;
+    }
 
-	public void setErrorCode(int errorCode) {
-		this.errorCode = errorCode;
-	}
-	public int getErrorCode() {
-		return errorCode;
-	}
+    public void setPDU(PDU pdu) {
+        this.pdu = pdu;
+    }
+
+    public PDU getPDU() {
+        return pdu;
+    }
+
+    public boolean hasPDU() {
+        return pdu != null;
+    }
+
+    public void setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    public int getErrorCode() {
+        return errorCode;
+    }
 }
 /*
  * $Log: not supported by cvs2svn $

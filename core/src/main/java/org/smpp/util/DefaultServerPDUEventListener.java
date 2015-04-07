@@ -24,22 +24,22 @@ import org.smpp.pdu.PDU;
  * @see ServerPDUEventListener
  */
 public class DefaultServerPDUEventListener extends SmppObject implements ServerPDUEventListener {
-	/**
-	 * "Handles" the event generated for received PDUs -- just logs
-	 * the event and throws it away.
-	 */
-	public void handleEvent(ServerPDUEvent event) {
-		PDU pdu = event.getPDU();
-		if (pdu != null) {
-			if (pdu.isRequest()) {
-				debug.write(DUTL, "receiver listener: handling request " + pdu.debugString());
-			} else if (pdu.isResponse()) {
-				debug.write(DUTL, "receiver listener: handling response " + pdu.debugString());
-			} else {
-				debug.write(DUTL, "receiver listener: handling strange pdu " + pdu.debugString());
-			}
-		}
-	}
+    /**
+     * "Handles" the event generated for received PDUs -- just logs
+     * the event and throws it away.
+     */
+    public void handleEvent(ServerPDUEvent event) {
+        PDU pdu = event.getPDU();
+        if (pdu != null) {
+            if (pdu.isRequest()) {
+                debug.write(DUTL, "receiver listener: handling request " + pdu.debugString());
+            } else if (pdu.isResponse()) {
+                debug.write(DUTL, "receiver listener: handling response " + pdu.debugString());
+            } else {
+                debug.write(DUTL, "receiver listener: handling strange pdu " + pdu.debugString());
+            }
+        }
+    }
 }
 /*
  * $Log: not supported by cvs2svn $

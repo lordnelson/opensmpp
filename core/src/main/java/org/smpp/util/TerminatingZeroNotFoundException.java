@@ -17,15 +17,15 @@ import org.smpp.SmppException;
  * @version $Revision: 1.2 $
  */
 public class TerminatingZeroNotFoundException extends SmppException {
-	private static final long serialVersionUID = 7028315742573472677L;
+    private static final long serialVersionUID = 7028315742573472677L;
 
-	public TerminatingZeroNotFoundException() {
-		super("Terminating zero not found in buffer.");
-	}
+    public TerminatingZeroNotFoundException() {
+        super("Terminating zero not found in buffer.");
+    }
 
-	public TerminatingZeroNotFoundException(String s) {
-		super(s);
-	}
+    public TerminatingZeroNotFoundException(String s) {
+        super(s);
+    }
 
 }
 /*

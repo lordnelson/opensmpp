@@ -17,25 +17,25 @@ import org.smpp.Data;
  * @version $Revision: 1.1 $
  */
 public class UnexpectedOptionalParameterException extends PDUException {
-	private static final long serialVersionUID = -1284359967986779783L;
-	private int tag = 0;
+    private static final long serialVersionUID = -1284359967986779783L;
+    private int tag = 0;
 
-	public UnexpectedOptionalParameterException() {
-		super("The optional parameter wasn't expected for the PDU.");
-		setErrorCode(Data.ESME_ROPTPARNOTALLWD);
-	}
+    public UnexpectedOptionalParameterException() {
+        super("The optional parameter wasn't expected for the PDU.");
+        setErrorCode(Data.ESME_ROPTPARNOTALLWD);
+    }
 
-	public UnexpectedOptionalParameterException(short tag) {
-		super("The optional parameter wasn't expected for the PDU:" + " tag=" + tag + ".");
-		this.tag = tag;
-		setErrorCode(Data.ESME_ROPTPARNOTALLWD);
-	}
+    public UnexpectedOptionalParameterException(short tag) {
+        super("The optional parameter wasn't expected for the PDU:" + " tag=" + tag + ".");
+        this.tag = tag;
+        setErrorCode(Data.ESME_ROPTPARNOTALLWD);
+    }
 
-	public void setTag(int tag) {
-		this.tag = tag;
-	}
+    public void setTag(int tag) {
+        this.tag = tag;
+    }
 
-	public int getTag() {
-		return tag;
-	}
+    public int getTag() {
+        return tag;
+    }
 }

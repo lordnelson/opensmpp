@@ -15,51 +15,51 @@ package org.smpp;
  * exceptions. Every exception defined in the library <code>SmppException</code>
  * as a superclass -- this way class <code>SmppException</code>
  * provides single class for <code>catch</code> clause.
- * 
+ *
  * @author Logica Mobile Networks SMPP Open Source Team
  * @version $Id: SmppException.java 72 2008-07-15 19:43:00Z sverkera $
  */
 
 public class SmppException extends Exception {
-	private static final long serialVersionUID = 3108928509613380097L;
+    private static final long serialVersionUID = 3108928509613380097L;
 
-	/**
-	 * Constructs a <code>SmppException</code> with no specified detail
-	 * message. 
-	 */
-	public SmppException() {
-		super();
-	}
+    /**
+     * Constructs a <code>SmppException</code> with no specified detail
+     * message.
+     */
+    public SmppException() {
+        super();
+    }
 
-	/**
-	 * Constructs a <code>SmppException</code> with a nested exception.
-	 * 
-	 * @param   e   The nested exception
-	 */
-	public SmppException(Exception e) {
-		super(e);
-	}
+    /**
+     * Constructs a <code>SmppException</code> with a nested exception.
+     *
+     * @param e The nested exception
+     */
+    public SmppException(Exception e) {
+        super(e);
+    }
 
-	/**
-	 * Constructs a <code>SmppException</code> with the specified detail
-	 * message. 
-	 *
-	 * @param   s   the detail message.
-	 */
-	public SmppException(String s) {
-		super(s);
-	}
+    /**
+     * Constructs a <code>SmppException</code> with the specified detail
+     * message.
+     *
+     * @param s the detail message.
+     */
+    public SmppException(String s) {
+        super(s);
+    }
 
-	/**
-	 * Constructs a <code>SmppException</code> with the specified detail
-	 * message and a nested exception
-	 *
-	 * @param   s   the detail message.
-	 * @param   e   The nested exception
-	 */
-	public SmppException(String s, Exception e) {
-		super(s, e);
-	}
+    /**
+     * Constructs a <code>SmppException</code> with the specified detail
+     * message and a nested exception
+     *
+     * @param s the detail message.
+     * @param e The nested exception
+     */
+    public SmppException(String s, Exception e) {
+        super(s, e);
+    }
 }
 /*
  * $Log: not supported by cvs2svn $

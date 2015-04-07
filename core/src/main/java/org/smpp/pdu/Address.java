@@ -10,131 +10,137 @@
  */
 package org.smpp.pdu;
 
-import java.io.UnsupportedEncodingException;
-
 import org.smpp.Data;
-import org.smpp.util.*;
+import org.smpp.util.ByteBuffer;
+import org.smpp.util.NotEnoughDataInByteBufferException;
+import org.smpp.util.TerminatingZeroNotFoundException;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * @author Logica Mobile Networks SMPP Open Source Team
  * @version $Id: Address.java 72 2008-07-15 19:43:00Z sverkera $
  */
 public class Address extends ByteData {
-	private byte ton = Data.DFLT_GSM_TON;
-	private byte npi = Data.DFLT_GSM_NPI;
-	private String address = Data.DFLT_ADDR;
-	private static int defaultMaxAddressLength = Data.SM_ADDR_LEN;
-	private int maxAddressLength = defaultMaxAddressLength;
+    private byte ton = Data.DFLT_GSM_TON;
+    private byte npi = Data.DFLT_GSM_NPI;
+    private String address = Data.DFLT_ADDR;
+    private static int defaultMaxAddressLength = Data.SM_ADDR_LEN;
+    private int maxAddressLength = defaultMaxAddressLength;
 
-	public Address() {
-		this(Data.getDefaultTon(), Data.getDefaultNpi(), defaultMaxAddressLength);
-	}
+    public Address() {
+        this(Data.getDefaultTon(), Data.getDefaultNpi(), defaultMaxAddressLength);
+    }
 
-	public Address(int maxAddressLength) {
-		this(Data.getDefaultTon(), Data.getDefaultNpi(), maxAddressLength);
-	}
+    public Address(int maxAddressLength) {
+        this(Data.getDefaultTon(), Data.getDefaultNpi(), maxAddressLength);
+    }
 
-	public Address(byte ton, byte npi, int maxAddressLength) {
-		setTon(ton);
-		setNpi(npi);
-		try {
-			setAddress(Data.DFLT_ADDR, maxAddressLength);
-		} catch (WrongLengthOfStringException e) {
-			throw new Error("Default address value was longer than default max address length.");
-		}
-	}
+    public Address(byte ton, byte npi, int maxAddressLength) {
+        setTon(ton);
+        setNpi(npi);
+        try {
+            setAddress(Data.DFLT_ADDR, maxAddressLength);
+        } catch (WrongLengthOfStringException e) {
+            throw new Error("Default address value was longer than default max address length.");
+        }
+    }
 
-	public Address(String address) throws WrongLengthOfStringException {
-		this(Data.getDefaultTon(), Data.getDefaultNpi(), address, defaultMaxAddressLength);
-	}
+    public Address(String address) throws WrongLengthOfStringException {
+        this(Data.getDefaultTon(), Data.getDefaultNpi(), address, defaultMaxAddressLength);
+    }
 
-	public Address(String address, int maxAddressLength) throws WrongLengthOfStringException {
-		this(Data.getDefaultTon(), Data.getDefaultNpi(), address, maxAddressLength);
-	}
+    public Address(String address, int maxAddressLength) throws WrongLengthOfStringException {
+        this(Data.getDefaultTon(), Data.getDefaultNpi(), address, maxAddressLength);
+    }
 
-	public Address(byte ton, byte npi, String address) throws WrongLengthOfStringException {
-		this(ton, npi, address, defaultMaxAddressLength);
-	}
+    public Address(byte ton, byte npi, String address) throws WrongLengthOfStringException {
+        this(ton, npi, address, defaultMaxAddressLength);
+    }
 
-	public Address(byte ton, byte npi, String address, int maxAddressLength) throws WrongLengthOfStringException {
-		setTon(ton);
-		setNpi(npi);
-		setAddress(address, maxAddressLength);
-	}
+    public Address(byte ton, byte npi, String address, int maxAddressLength) throws WrongLengthOfStringException {
+        setTon(ton);
+        setNpi(npi);
+        setAddress(address, maxAddressLength);
+    }
 
-	public void setData(ByteBuffer buffer)
-		throws NotEnoughDataInByteBufferException, TerminatingZeroNotFoundException, WrongLengthOfStringException {
-		byte ton = buffer.removeByte();
-		byte npi = buffer.removeByte();
-		String address = buffer.removeCString();
-		setAddress(address);
-		setTon(ton);
-		setNpi(npi);
-	}
+    public void setData(ByteBuffer buffer)
+            throws NotEnoughDataInByteBufferException, TerminatingZeroNotFoundException, WrongLengthOfStringException {
+        byte ton = buffer.removeByte();
+        byte npi = buffer.removeByte();
+        String address = buffer.removeCString();
+        setAddress(address);
+        setTon(ton);
+        setNpi(npi);
+    }
 
-	public ByteBuffer getData() {
-		ByteBuffer addressBuf = new ByteBuffer();
-		addressBuf.appendByte(getTon());
-		addressBuf.appendByte(getNpi());
-		try {
-			addressBuf.appendCString(getAddress(), Data.ENC_ASCII);
-		} catch(UnsupportedEncodingException e) {
-			// can't happen, ascii is always supported
-		}
-		
-		return addressBuf;
-	}
+    public ByteBuffer getData() {
+        ByteBuffer addressBuf = new ByteBuffer();
+        addressBuf.appendByte(getTon());
+        addressBuf.appendByte(getNpi());
+        try {
+            addressBuf.appendCString(getAddress(), Data.ENC_ASCII);
+        } catch (UnsupportedEncodingException e) {
+            // can't happen, ascii is always supported
+        }
 
-	public void setTon(byte ton) {
-		this.ton = ton;
-	}
-	public void setNpi(byte npi) {
-		this.npi = npi;
-	}
-	public void setAddress(String address) throws WrongLengthOfStringException {
-		setAddress(address, maxAddressLength);
-	}
-	public void setAddress(String address, int maxAddressLength) throws WrongLengthOfStringException {
-		checkCString(address, maxAddressLength);
-		this.maxAddressLength = maxAddressLength;
-		this.address = address;
-	}
+        return addressBuf;
+    }
 
-	public byte getTon() {
-		return ton;
-	}
-	public byte getNpi() {
-		return npi;
-	}
+    public void setTon(byte ton) {
+        this.ton = ton;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public void setNpi(byte npi) {
+        this.npi = npi;
+    }
 
-	public String getAddress(String encoding) {
-		// The address is by default encoded with Data.ENC_ASCII
-		// Create a new string with the given encoding
-		try {
-			byte[] bytes = address.getBytes(Data.ENC_ASCII);
-			String newAddress = new String(bytes, encoding);
-			return newAddress;
-		} catch(UnsupportedEncodingException uee) {
-			// just return the address as it is
-			return address;
-		}
-	}
+    public void setAddress(String address) throws WrongLengthOfStringException {
+        setAddress(address, maxAddressLength);
+    }
 
-	public String debugString() {
-		String dbgs = "(addr: ";
-		dbgs += super.debugString();
-		dbgs += Integer.toString(getTon());
-		dbgs += " ";
-		dbgs += Integer.toString(getNpi());
-		dbgs += " ";
-		dbgs += getAddress();
-		dbgs += ") ";
-		return dbgs;
-	}
+    public void setAddress(String address, int maxAddressLength) throws WrongLengthOfStringException {
+        checkCString(address, maxAddressLength);
+        this.maxAddressLength = maxAddressLength;
+        this.address = address;
+    }
+
+    public byte getTon() {
+        return ton;
+    }
+
+    public byte getNpi() {
+        return npi;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getAddress(String encoding) {
+        // The address is by default encoded with Data.ENC_ASCII
+        // Create a new string with the given encoding
+        try {
+            byte[] bytes = address.getBytes(Data.ENC_ASCII);
+            String newAddress = new String(bytes, encoding);
+            return newAddress;
+        } catch (UnsupportedEncodingException uee) {
+            // just return the address as it is
+            return address;
+        }
+    }
+
+    public String debugString() {
+        String dbgs = "(addr: ";
+        dbgs += super.debugString();
+        dbgs += Integer.toString(getTon());
+        dbgs += " ";
+        dbgs += Integer.toString(getNpi());
+        dbgs += " ";
+        dbgs += getAddress();
+        dbgs += ") ";
+        return dbgs;
+    }
 
 }
 /*

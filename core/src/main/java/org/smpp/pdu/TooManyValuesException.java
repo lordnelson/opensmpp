@@ -17,9 +17,9 @@ import org.smpp.Data;
  * @version $Revision: 1.1 $
  */
 public class TooManyValuesException extends PDUException {
-	private static final long serialVersionUID = -2777016699062489252L;
+    private static final long serialVersionUID = -2777016699062489252L;
 
-	public TooManyValuesException() {
-		setErrorCode(Data.ESME_RINVPARAM);
-	}
+    public TooManyValuesException() {
+        setErrorCode(Data.ESME_RINVPARAM);
+    }
 }

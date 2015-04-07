@@ -16,25 +16,25 @@ package org.smpp;
  * the <code>Receiver</code> is in asynchronous state, i.e when all PDUs received
  * from the SMSC are passed to an instance of implementation of
  * <code>ServerPDUListener</code> class.
-
+ *
  * @author Logica Mobile Networks SMPP Open Source Team
  * @version $Revision: 1.2 $
  */
 
 public class NotSynchronousException extends SmppException {
-	private static final long serialVersionUID = -2785891348929001265L;
-	private Session session = null;
+    private static final long serialVersionUID = -2785891348929001265L;
+    private Session session = null;
 
-	public NotSynchronousException() {
-	}
+    public NotSynchronousException() {
+    }
 
-	public NotSynchronousException(Session session) {
-		this.session = session;
-	}
+    public NotSynchronousException(Session session) {
+        this.session = session;
+    }
 
-	public Session getSession() {
-		return session;
-	}
+    public Session getSession() {
+        return session;
+    }
 
 }
 /*

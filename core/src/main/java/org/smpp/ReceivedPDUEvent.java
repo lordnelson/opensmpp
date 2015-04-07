@@ -10,9 +10,9 @@
  */
 package org.smpp;
 
-import java.util.EventObject;
-
 import org.smpp.pdu.PDU;
+
+import java.util.EventObject;
 
 /**
  * The base class for events representing receiving a pdu by
@@ -22,41 +22,41 @@ import org.smpp.pdu.PDU;
  * @version $Revision: 1.2 $
  */
 public class ReceivedPDUEvent extends EventObject {
-	private static final long serialVersionUID = 2888578757849035826L;
+    private static final long serialVersionUID = 2888578757849035826L;
 
-	/**
-	 * The connection over which was the pdu received.
-	 */
-	private transient Connection connection = null;
+    /**
+     * The connection over which was the pdu received.
+     */
+    private transient Connection connection = null;
 
-	/**
-	 * The received pdu.
-	 */
-	private transient PDU pdu = null;
+    /**
+     * The received pdu.
+     */
+    private transient PDU pdu = null;
 
-	/**
-	 * Construct event for pdu received over connection belonging
-	 * to the receiver.
-	 */
-	public ReceivedPDUEvent(ReceiverBase source, Connection connection, PDU pdu) {
-		super(source);
-		this.connection = connection;
-		this.pdu = pdu;
-	}
+    /**
+     * Construct event for pdu received over connection belonging
+     * to the receiver.
+     */
+    public ReceivedPDUEvent(ReceiverBase source, Connection connection, PDU pdu) {
+        super(source);
+        this.connection = connection;
+        this.pdu = pdu;
+    }
 
-	/**
-	 * Return the connection over which the pdu was received.
-	 */
-	public Connection getConnection() {
-		return connection;
-	}
+    /**
+     * Return the connection over which the pdu was received.
+     */
+    public Connection getConnection() {
+        return connection;
+    }
 
-	/**
-	 * Return the received pdu.
-	 */
-	public PDU getPDU() {
-		return pdu;
-	}
+    /**
+     * Return the received pdu.
+     */
+    public PDU getPDU() {
+        return pdu;
+    }
 
 }
 /*

@@ -15,7 +15,7 @@ package org.smpp.pdu;
  * @version $Revision: 1.1 $
  */
 public class MessageIncompleteException extends PDUException {
-	private static final long serialVersionUID = 9081917316954328823L;
+    private static final long serialVersionUID = 9081917316954328823L;
 }
 /*
  * $Log: not supported by cvs2svn $

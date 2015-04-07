@@ -25,12 +25,13 @@ package org.smpp.smscsim;
  * @see SMSCSession
  */
 public interface PDUProcessorFactory {
-	/**
-	 * Should generate proper PDU processor for processing of PDUs.
-	 * @param session the session the PDU processor should work on
-	 * @return the new PDU processor for processing reqests and responses
-	 */
-	public abstract PDUProcessor createPDUProcessor(SMSCSession session);
+    /**
+     * Should generate proper PDU processor for processing of PDUs.
+     *
+     * @param session the session the PDU processor should work on
+     * @return the new PDU processor for processing reqests and responses
+     */
+    public abstract PDUProcessor createPDUProcessor(SMSCSession session);
 }
 /*
  * $Log: not supported by cvs2svn $

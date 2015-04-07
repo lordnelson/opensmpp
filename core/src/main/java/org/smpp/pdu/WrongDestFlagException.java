@@ -17,24 +17,24 @@ import org.smpp.Data;
  * @version $Revision: 1.1 $
  */
 public class WrongDestFlagException extends PDUException {
-	private static final long serialVersionUID = 6266749651012701472L;
+    private static final long serialVersionUID = 6266749651012701472L;
 
-	public WrongDestFlagException() {
-		setErrorCode(Data.ESME_RINVPARAM);
-	}
+    public WrongDestFlagException() {
+        setErrorCode(Data.ESME_RINVPARAM);
+    }
 
-	public WrongDestFlagException(PDU pdu) {
-		super(pdu);
-		setErrorCode(Data.ESME_RINVPARAM);
-	}
+    public WrongDestFlagException(PDU pdu) {
+        super(pdu);
+        setErrorCode(Data.ESME_RINVPARAM);
+    }
 
-	public WrongDestFlagException(String s) {
-		super(s);
-		setErrorCode(Data.ESME_RINVPARAM);
-	}
+    public WrongDestFlagException(String s) {
+        super(s);
+        setErrorCode(Data.ESME_RINVPARAM);
+    }
 
-	public WrongDestFlagException(PDU pdu, String s) {
-		super(pdu, s);
-		setErrorCode(Data.ESME_RINVPARAM);
-	}
+    public WrongDestFlagException(PDU pdu, String s) {
+        super(pdu, s);
+        setErrorCode(Data.ESME_RINVPARAM);
+    }
 }

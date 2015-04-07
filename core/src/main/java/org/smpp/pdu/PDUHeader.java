@@ -18,58 +18,58 @@ import org.smpp.util.NotEnoughDataInByteBufferException;
  * @version $Revision: 1.1 $
  */
 public class PDUHeader extends ByteData {
-	private int commandLength = 0;
-	private int commandId = 0;
-	private int commandStatus = 0;
-	private int sequenceNumber = 1;
+    private int commandLength = 0;
+    private int commandId = 0;
+    private int commandStatus = 0;
+    private int sequenceNumber = 1;
 
-	public ByteBuffer getData() {
-		ByteBuffer buffer = new ByteBuffer();
-		buffer.appendInt(getCommandLength());
-		buffer.appendInt(getCommandId());
-		buffer.appendInt(getCommandStatus());
-		buffer.appendInt(getSequenceNumber());
-		return buffer;
-	}
+    public ByteBuffer getData() {
+        ByteBuffer buffer = new ByteBuffer();
+        buffer.appendInt(getCommandLength());
+        buffer.appendInt(getCommandId());
+        buffer.appendInt(getCommandStatus());
+        buffer.appendInt(getSequenceNumber());
+        return buffer;
+    }
 
-	public void setData(ByteBuffer buffer) throws NotEnoughDataInByteBufferException {
-		commandLength = buffer.removeInt();
-		commandId = buffer.removeInt();
-		commandStatus = buffer.removeInt();
-		sequenceNumber = buffer.removeInt();
-	}
+    public void setData(ByteBuffer buffer) throws NotEnoughDataInByteBufferException {
+        commandLength = buffer.removeInt();
+        commandId = buffer.removeInt();
+        commandStatus = buffer.removeInt();
+        sequenceNumber = buffer.removeInt();
+    }
 
-	public int getCommandLength() {
-		return commandLength;
-	}
+    public int getCommandLength() {
+        return commandLength;
+    }
 
-	public int getCommandId() {
-		return commandId;
-	}
+    public int getCommandId() {
+        return commandId;
+    }
 
-	public int getCommandStatus() {
-		return commandStatus;
-	}
+    public int getCommandStatus() {
+        return commandStatus;
+    }
 
-	public int getSequenceNumber() {
-		return sequenceNumber;
-	}
+    public int getSequenceNumber() {
+        return sequenceNumber;
+    }
 
-	public void setCommandLength(int cmdLen) {
-		commandLength = cmdLen;
-	}
+    public void setCommandLength(int cmdLen) {
+        commandLength = cmdLen;
+    }
 
-	public void setCommandId(int cmdId) {
-		commandId = cmdId;
-	}
+    public void setCommandId(int cmdId) {
+        commandId = cmdId;
+    }
 
-	public void setCommandStatus(int cmdStatus) {
-		commandStatus = cmdStatus;
-	}
+    public void setCommandStatus(int cmdStatus) {
+        commandStatus = cmdStatus;
+    }
 
-	public void setSequenceNumber(int seqNr) {
-		sequenceNumber = seqNr;
-	}
+    public void setSequenceNumber(int seqNr) {
+        sequenceNumber = seqNr;
+    }
 }
 /*
  * $Log: not supported by cvs2svn $

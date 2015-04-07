@@ -10,54 +10,56 @@
  */
 package org.smpp.debug;
 
-import java.io.StringWriter;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 
 /**
  * @author Logica Mobile Networks SMPP Open Source Team
  * @version $Revision: 1.1 $
  */
 public class FileEvent implements Event {
-	private FileLog log = null;
+    private FileLog log = null;
 
-	public FileEvent(String dir, String name) {
-		log = new FileLog(dir, name);
-		activate();
-	}
+    public FileEvent(String dir, String name) {
+        log = new FileLog(dir, name);
+        activate();
+    }
 
-	public void write(String msg) {
-		if (isActive()) {
-			log.genericWrite(msg == null ? "" : msg);
-		}
-	}
+    public void write(String msg) {
+        if (isActive()) {
+            log.genericWrite(msg == null ? "" : msg);
+        }
+    }
 
-	public void write(Exception e, String msg) {
-		if (isActive()) {
-			StringWriter stackOutString = new StringWriter();
-			PrintWriter stackOut = new PrintWriter(stackOutString);
-			e.printStackTrace(stackOut);
-			try {
-				if (msg != null) {
-					write(msg);
-				}
-				write("Exception: " + stackOutString.toString());
-			} catch (Exception ex) {
-				System.err.println("Event log failure " + ex);
-			}
-		}
-	}
+    public void write(Exception e, String msg) {
+        if (isActive()) {
+            StringWriter stackOutString = new StringWriter();
+            PrintWriter stackOut = new PrintWriter(stackOutString);
+            e.printStackTrace(stackOut);
+            try {
+                if (msg != null) {
+                    write(msg);
+                }
+                write("Exception: " + stackOutString.toString());
+            } catch (Exception ex) {
+                System.err.println("Event log failure " + ex);
+            }
+        }
+    }
 
-	public void activate() {
-		if (log != null)
-			log.activate();
-	}
-	public void deactivate() {
-		if (log != null)
-			log.deactivate();
-	}
-	public boolean isActive() {
-		return (log != null) ? log.isActive() : false;
-	}
+    public void activate() {
+        if (log != null)
+            log.activate();
+    }
+
+    public void deactivate() {
+        if (log != null)
+            log.deactivate();
+    }
+
+    public boolean isActive() {
+        return (log != null) ? log.isActive() : false;
+    }
 }
 /*
  * $Log: not supported by cvs2svn $

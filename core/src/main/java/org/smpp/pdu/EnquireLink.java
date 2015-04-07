@@ -11,35 +11,37 @@
 package org.smpp.pdu;
 
 import org.smpp.Data;
-import org.smpp.util.*;
+import org.smpp.util.ByteBuffer;
+import org.smpp.util.NotEnoughDataInByteBufferException;
+import org.smpp.util.TerminatingZeroNotFoundException;
 
 /**
  * @author Logica Mobile Networks SMPP Open Source Team
  * @version $Revision: 1.1 $
  */
 public class EnquireLink extends Request {
-	public EnquireLink() {
-		super(Data.ENQUIRE_LINK);
-	}
+    public EnquireLink() {
+        super(Data.ENQUIRE_LINK);
+    }
 
-	protected Response createResponse() {
-		return new EnquireLinkResp();
-	}
+    protected Response createResponse() {
+        return new EnquireLinkResp();
+    }
 
-	public void setBody(ByteBuffer buffer)
-		throws NotEnoughDataInByteBufferException, TerminatingZeroNotFoundException, PDUException {
-	}
+    public void setBody(ByteBuffer buffer)
+            throws NotEnoughDataInByteBufferException, TerminatingZeroNotFoundException, PDUException {
+    }
 
-	public ByteBuffer getBody() {
-		return null;
-	}
+    public ByteBuffer getBody() {
+        return null;
+    }
 
-	public String debugString() {
-		String dbgs = "(enquirelink: ";
-		dbgs += super.debugString();
-		dbgs += ") ";
-		return dbgs;
-	}
+    public String debugString() {
+        String dbgs = "(enquirelink: ";
+        dbgs += super.debugString();
+        dbgs += ") ";
+        return dbgs;
+    }
 }
 /*
  * $Log: not supported by cvs2svn $

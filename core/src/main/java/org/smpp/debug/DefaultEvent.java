@@ -10,8 +10,8 @@
  */
 package org.smpp.debug;
 
-import java.io.StringWriter;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 
 /**
  * Simple implementation of <code>Event</code> interface which writes
@@ -23,33 +23,34 @@ import java.io.PrintWriter;
  * @version $Revision: 1.1 $
  */
 public class DefaultEvent implements Event {
-	private boolean active = false;
+    private boolean active = false;
 
-	public void write(String msg) {
-		if (active) {
-			System.out.println(msg);
-		}
-	}
+    public void write(String msg) {
+        if (active) {
+            System.out.println(msg);
+        }
+    }
 
-	public void write(Exception e, String msg) {
-		if (active) {
-			StringWriter stackOutString = new StringWriter();
-			PrintWriter stackOut = new PrintWriter(stackOutString);
-			e.printStackTrace(stackOut);
-			try {
-				write("Exception: " + stackOutString.toString() + " " + msg);
-			} catch (Exception ex) {
-				System.err.println("Event log failure " + ex);
-			}
-		}
-	}
+    public void write(Exception e, String msg) {
+        if (active) {
+            StringWriter stackOutString = new StringWriter();
+            PrintWriter stackOut = new PrintWriter(stackOutString);
+            e.printStackTrace(stackOut);
+            try {
+                write("Exception: " + stackOutString.toString() + " " + msg);
+            } catch (Exception ex) {
+                System.err.println("Event log failure " + ex);
+            }
+        }
+    }
 
-	public void activate() {
-		active = true;
-	}
-	public void deactivate() {
-		active = false;
-	}
+    public void activate() {
+        active = true;
+    }
+
+    public void deactivate() {
+        active = false;
+    }
 }
 /*
  * $Log: not supported by cvs2svn $

@@ -11,48 +11,50 @@
 package org.smpp.pdu;
 
 import org.smpp.Data;
-import org.smpp.util.*;
+import org.smpp.util.ByteBuffer;
+import org.smpp.util.NotEnoughDataInByteBufferException;
+import org.smpp.util.TerminatingZeroNotFoundException;
 
 /**
  * @author Logica Mobile Networks SMPP Open Source Team
  * @version $Revision: 1.1 $
  */
 public class DeliverSMResp extends Response {
-	private String messageId = Data.DFLT_MSGID;
+    private String messageId = Data.DFLT_MSGID;
 
-	public DeliverSMResp() {
-		super(Data.DELIVER_SM_RESP);
-	}
+    public DeliverSMResp() {
+        super(Data.DELIVER_SM_RESP);
+    }
 
-	public void setBody(ByteBuffer buffer)
-		throws NotEnoughDataInByteBufferException, TerminatingZeroNotFoundException, WrongLengthOfStringException {
-		setMessageId(buffer.removeCString());
-	}
+    public void setBody(ByteBuffer buffer)
+            throws NotEnoughDataInByteBufferException, TerminatingZeroNotFoundException, WrongLengthOfStringException {
+        setMessageId(buffer.removeCString());
+    }
 
-	public ByteBuffer getBody() {
-		ByteBuffer buffer = new ByteBuffer();
-		buffer.appendCString(messageId);
-		return buffer;
-	}
+    public ByteBuffer getBody() {
+        ByteBuffer buffer = new ByteBuffer();
+        buffer.appendCString(messageId);
+        return buffer;
+    }
 
-	public void setMessageId(String value) throws WrongLengthOfStringException {
-		checkString(value, Data.SM_MSGID_LEN);
-		messageId = value;
-	}
+    public void setMessageId(String value) throws WrongLengthOfStringException {
+        checkString(value, Data.SM_MSGID_LEN);
+        messageId = value;
+    }
 
-	public String getMessageId() {
-		return messageId;
-	}
+    public String getMessageId() {
+        return messageId;
+    }
 
-	public String debugString() {
-		String dbgs = "(deliver_resp: ";
-		dbgs += super.debugString();
-		dbgs += getMessageId();
-		dbgs += " ";
-		dbgs += debugStringOptional();
-		dbgs += ") ";
-		return dbgs;
-	}
+    public String debugString() {
+        String dbgs = "(deliver_resp: ";
+        dbgs += super.debugString();
+        dbgs += getMessageId();
+        dbgs += " ";
+        dbgs += debugStringOptional();
+        dbgs += ") ";
+        return dbgs;
+    }
 }
 /*
  * $Log: not supported by cvs2svn $

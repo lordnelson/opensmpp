@@ -27,7 +27,7 @@ import java.util.EventListener;
  */
 
 public interface OutbindEventListener extends EventListener {
-	public void handleOutbind(OutbindEvent outbind);
+    public void handleOutbind(OutbindEvent outbind);
 }
 /*
  * $Log: not supported by cvs2svn $

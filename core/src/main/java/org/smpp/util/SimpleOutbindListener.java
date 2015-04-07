@@ -41,42 +41,42 @@ import org.smpp.SmppObject;
  * @version $Revision: 1.1 $
  */
 public class SimpleOutbindListener extends SmppObject implements OutbindEventListener {
-	private Queue eventQueue = new Queue();
+    private Queue eventQueue = new Queue();
 
-	private Object signaller = null;
+    private Object signaller = null;
 
-	public SimpleOutbindListener() {
-		signaller = this;
-	}
+    public SimpleOutbindListener() {
+        signaller = this;
+    }
 
-	public SimpleOutbindListener(Object signaller) {
-		this.signaller = signaller;
-	}
+    public SimpleOutbindListener(Object signaller) {
+        this.signaller = signaller;
+    }
 
-	public void handleOutbind(OutbindEvent outbind) {
-		eventQueue.enqueue(outbind);
-		signaller.notify();
-	}
+    public void handleOutbind(OutbindEvent outbind) {
+        eventQueue.enqueue(outbind);
+        signaller.notify();
+    }
 
-	public OutbindEvent getOutbindEvent() {
-		if (!eventQueue.isEmpty()) {
-			return (OutbindEvent) eventQueue.dequeue();
-		} else {
-			return null;
-		}
-	}
+    public OutbindEvent getOutbindEvent() {
+        if (!eventQueue.isEmpty()) {
+            return (OutbindEvent) eventQueue.dequeue();
+        } else {
+            return null;
+        }
+    }
 
-	public void waitOutbind() throws InterruptedException {
-		signaller.wait();
-	}
+    public void waitOutbind() throws InterruptedException {
+        signaller.wait();
+    }
 
-	public void waitOutbind(long timeout) throws InterruptedException {
-		signaller.wait(timeout);
-	}
+    public void waitOutbind(long timeout) throws InterruptedException {
+        signaller.wait(timeout);
+    }
 
-	public void waitOutbind(long timeout, int nanos) throws InterruptedException {
-		signaller.wait(timeout, nanos);
-	}
+    public void waitOutbind(long timeout, int nanos) throws InterruptedException {
+        signaller.wait(timeout, nanos);
+    }
 }
 /*
  * $Log: not supported by cvs2svn $

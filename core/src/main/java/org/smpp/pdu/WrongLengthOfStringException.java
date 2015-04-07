@@ -17,25 +17,25 @@ import org.smpp.Data;
  * @version $Revision: 1.1 $
  */
 public class WrongLengthOfStringException extends PDUException {
-	private static final long serialVersionUID = 8604133584902790266L;
+    private static final long serialVersionUID = 8604133584902790266L;
 
-	public WrongLengthOfStringException() {
-		super("The string is shorter or longer than required.");
-		setErrorCode(Data.ESME_RINVPARAM);
-	}
+    public WrongLengthOfStringException() {
+        super("The string is shorter or longer than required.");
+        setErrorCode(Data.ESME_RINVPARAM);
+    }
 
-	public WrongLengthOfStringException(int min, int max, int actual) {
-		super(
-			"The string is shorter or longer than required: "
-				+ " min="
-				+ min
-				+ " max="
-				+ max
-				+ " actual="
-				+ actual
-				+ ".");
-		setErrorCode(Data.ESME_RINVPARAM);
-	}
+    public WrongLengthOfStringException(int min, int max, int actual) {
+        super(
+                "The string is shorter or longer than required: "
+                        + " min="
+                        + min
+                        + " max="
+                        + max
+                        + " actual="
+                        + actual
+                        + ".");
+        setErrorCode(Data.ESME_RINVPARAM);
+    }
 }
 /*
  * $Log: not supported by cvs2svn $

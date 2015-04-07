@@ -19,26 +19,26 @@ import org.smpp.pdu.SubmitSM;
  * @version $Revision: 1.1 $
  */
 class ShortMessageValue {
-	String systemId;
-	String serviceType;
-	String sourceAddr;
-	String destinationAddr;
-	String shortMessage;
+    String systemId;
+    String serviceType;
+    String sourceAddr;
+    String destinationAddr;
+    String shortMessage;
 
-	/**
-	 * Constructor for building the object from <code>SubmitSM</code>
-	 * PDU.
-	 *
-	 * @param systemId system id of the client
-	 * @param submit the PDU send from the client
-	 */
-	ShortMessageValue(String systemId, SubmitSM submit) {
-		this.systemId = systemId;
-		serviceType = submit.getServiceType();
-		sourceAddr = submit.getSourceAddr().getAddress();
-		destinationAddr = submit.getDestAddr().getAddress();
-		shortMessage = submit.getShortMessage();
-	}
+    /**
+     * Constructor for building the object from <code>SubmitSM</code>
+     * PDU.
+     *
+     * @param systemId system id of the client
+     * @param submit   the PDU send from the client
+     */
+    ShortMessageValue(String systemId, SubmitSM submit) {
+        this.systemId = systemId;
+        serviceType = submit.getServiceType();
+        sourceAddr = submit.getSourceAddr().getAddress();
+        destinationAddr = submit.getDestAddr().getAddress();
+        shortMessage = submit.getShortMessage();
+    }
 }
 /*
  * $Log: not supported by cvs2svn $
