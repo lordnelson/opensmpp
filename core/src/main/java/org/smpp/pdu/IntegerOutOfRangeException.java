@@ -10,7 +10,7 @@
  */
 package org.smpp.pdu;
 
-import org.smpp.Data;
+import org.smpp.CommandStatus;
 
 /**
  * @author Logica Mobile Networks SMPP Open Source Team
@@ -21,12 +21,12 @@ public class IntegerOutOfRangeException extends PDUException {
 
     public IntegerOutOfRangeException() {
         super("The integer is lower or greater than required.");
-        setErrorCode(Data.ESME_RINVPARAM);
+        setErrorCode(CommandStatus.ESME_RINVPARAM.statusValue);
     }
 
     public IntegerOutOfRangeException(int min, int max, int val) {
         super("The integer is lower or greater than required: " + " min=" + min + " max=" + max + " actual=" + val + ".");
-        setErrorCode(Data.ESME_RINVPARAM);
+        setErrorCode(CommandStatus.ESME_RINVPARAM.statusValue);
     }
 }
 /*

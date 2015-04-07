@@ -10,6 +10,7 @@
  */
 package org.smpp.pdu;
 
+import org.smpp.CommandStatus;
 import org.smpp.Data;
 import org.smpp.pdu.tlv.*;
 import org.smpp.util.ByteBuffer;
@@ -158,7 +159,7 @@ public class SubmitSM extends Request {
         try {
             checkCString(value, Data.SM_SRVTYPE_LEN);
         } catch (WrongLengthOfStringException e) {
-            e.setErrorCode(Data.ESME_RINVSERTYP);
+            e.setErrorCode(CommandStatus.ESME_RINVSERTYP.statusValue);
             throw e;
         }
         serviceType = value;
@@ -168,7 +169,7 @@ public class SubmitSM extends Request {
         try {
             checkDate(value);
         } catch (WrongDateFormatException e) {
-            e.setErrorCode(Data.ESME_RINVSCHED);
+            e.setErrorCode(CommandStatus.ESME_RINVSCHED.statusValue);
             throw e;
         }
         scheduleDeliveryTime = value;
@@ -178,7 +179,7 @@ public class SubmitSM extends Request {
         try {
             checkDate(value);
         } catch (WrongDateFormatException e) {
-            e.setErrorCode(Data.ESME_RINVEXPIRY);
+            e.setErrorCode(CommandStatus.ESME_RINVEXPIRY.statusValue);
             throw e;
         }
         validityPeriod = value;

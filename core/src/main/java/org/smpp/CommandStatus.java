@@ -1,6 +1,6 @@
 package org.smpp;
 
-public enum ErrorCode {
+public enum CommandStatus {
 
     ESME_ROK(0x00000000),
     ESME_RINVMSGLEN(0x00000001),
@@ -102,9 +102,9 @@ public enum ErrorCode {
     ESME_RUNKNOWNERR(0x000000FF),
     ESME_LAST_ERROR(0x0000012C);
 
-    public final int errorValue;
+    public final int statusValue;
 
-    ErrorCode(final int errorValue) {
-        this.errorValue = errorValue;
+    CommandStatus(final int statusValue) {
+        this.statusValue = statusValue;
     }
 }

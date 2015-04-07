@@ -10,7 +10,7 @@
  */
 package org.smpp.pdu;
 
-import org.smpp.Data;
+import org.smpp.CommandStatus;
 
 /**
  * @author Logica Mobile Networks SMPP Open Source Team
@@ -20,21 +20,21 @@ public class WrongDestFlagException extends PDUException {
     private static final long serialVersionUID = 6266749651012701472L;
 
     public WrongDestFlagException() {
-        setErrorCode(Data.ESME_RINVPARAM);
+        setErrorCode(CommandStatus.ESME_RINVPARAM.statusValue);
     }
 
     public WrongDestFlagException(PDU pdu) {
         super(pdu);
-        setErrorCode(Data.ESME_RINVPARAM);
+        setErrorCode(CommandStatus.ESME_RINVPARAM.statusValue);
     }
 
     public WrongDestFlagException(String s) {
         super(s);
-        setErrorCode(Data.ESME_RINVPARAM);
+        setErrorCode(CommandStatus.ESME_RINVPARAM.statusValue);
     }
 
     public WrongDestFlagException(PDU pdu, String s) {
         super(pdu, s);
-        setErrorCode(Data.ESME_RINVPARAM);
+        setErrorCode(CommandStatus.ESME_RINVPARAM.statusValue);
     }
 }

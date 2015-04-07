@@ -10,7 +10,7 @@
  */
 package org.smpp.pdu;
 
-import org.smpp.Data;
+import org.smpp.CommandStatus;
 
 /**
  * @author Logica Mobile Networks SMPP Open Source Team
@@ -21,16 +21,16 @@ public class WrongDateFormatException extends PDUException {
 
     public WrongDateFormatException() {
         super("Date must be either null or of format YYMMDDhhmmsstnnp");
-        setErrorCode(Data.ESME_RINVPARAM);
+        setErrorCode(CommandStatus.ESME_RINVPARAM.statusValue);
     }
 
     public WrongDateFormatException(String dateStr) {
         super("Date must be either null or of format YYMMDDhhmmsstnnp and not " + dateStr + ".");
-        setErrorCode(Data.ESME_RINVPARAM);
+        setErrorCode(CommandStatus.ESME_RINVPARAM.statusValue);
     }
 
     public WrongDateFormatException(String dateStr, String msg) {
         super("Invalid date " + dateStr + ": " + msg);
-        setErrorCode(Data.ESME_RINVPARAM);
+        setErrorCode(CommandStatus.ESME_RINVPARAM.statusValue);
     }
 }

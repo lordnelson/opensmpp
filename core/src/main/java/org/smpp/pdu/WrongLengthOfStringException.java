@@ -10,7 +10,7 @@
  */
 package org.smpp.pdu;
 
-import org.smpp.Data;
+import org.smpp.CommandStatus;
 
 /**
  * @author Logica Mobile Networks SMPP Open Source Team
@@ -21,7 +21,7 @@ public class WrongLengthOfStringException extends PDUException {
 
     public WrongLengthOfStringException() {
         super("The string is shorter or longer than required.");
-        setErrorCode(Data.ESME_RINVPARAM);
+        setErrorCode(CommandStatus.ESME_RINVPARAM.statusValue);
     }
 
     public WrongLengthOfStringException(int min, int max, int actual) {
@@ -34,7 +34,7 @@ public class WrongLengthOfStringException extends PDUException {
                         + " actual="
                         + actual
                         + ".");
-        setErrorCode(Data.ESME_RINVPARAM);
+        setErrorCode(CommandStatus.ESME_RINVPARAM.statusValue);
     }
 }
 /*

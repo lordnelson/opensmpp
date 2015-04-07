@@ -10,7 +10,7 @@
  */
 package org.smpp.pdu;
 
-import org.smpp.Data;
+import org.smpp.CommandStatus;
 import org.smpp.util.ByteBuffer;
 import org.smpp.util.NotEnoughDataInByteBufferException;
 import org.smpp.util.TerminatingZeroNotFoundException;
@@ -20,7 +20,7 @@ import org.smpp.util.TerminatingZeroNotFoundException;
  * @version $Revision: 1.1 $
  */
 public class UnsuccessSME extends Address {
-    public int errorStatusCode = Data.ESME_ROK;
+    public int errorStatusCode = CommandStatus.ESME_ROK.statusValue;
 
     public UnsuccessSME() {
     }

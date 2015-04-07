@@ -438,7 +438,7 @@ public class Session extends SmppObject {
             transmitter = new Transmitter(connection);
             receiver = new Receiver(transmitter, connection);
             BindResponse bindResp = (BindResponse) send(bindReq, false);
-            bound = ((bindResp != null) && (bindResp.getCommandStatus() == Data.ESME_ROK));
+            bound = ((bindResp != null) && (bindResp.getCommandStatus() == CommandStatus.ESME_ROK.statusValue));
             if (!bound) {
                 //receiver.stop();
                 close();
@@ -964,13 +964,13 @@ public class Session extends SmppObject {
                     debug.write("Unexpected NotSynchronousException caught, ignoring :-)");
                 }
             } catch (UnknownCommandIdException e) {
-                safeGenericNack(Data.ESME_RINVCMDID, e.getSequenceNumber());
+                safeGenericNack(CommandStatus.ESME_RINVCMDID.statusValue, e.getSequenceNumber());
             } catch (InvalidPDUException e) {
                 if ((e.getException() instanceof NotEnoughDataInByteBufferException)
                         || (e.getException() instanceof TerminatingZeroNotFoundException)) {
                     debug.write(DSESS, "wrong length " + e);
                     debug.write(DSESS, " => sending gnack.");
-                    safeGenericNack(Data.ESME_RINVMSGLEN, e.getPDU().getSequenceNumber());
+                    safeGenericNack(CommandStatus.ESME_RINVMSGLEN.statusValue, e.getPDU().getSequenceNumber());
                 } else {
                     debug.write(DSESS, "InvalidPDUException - rethrowing " + e);
                     debug.exit(DSESS, this);
@@ -1040,7 +1040,7 @@ public class Session extends SmppObject {
                 response = expResponse;
             } else {
                 debug.write(DSESS, "invalid command id - sending gnack");
-                safeGenericNack(Data.ESME_RINVCMDID, pdu.getSequenceNumber());
+                safeGenericNack(CommandStatus.ESME_RINVCMDID.statusValue, pdu.getSequenceNumber());
                 response = null;
             }
         } else {

@@ -10,7 +10,7 @@
  */
 package org.smpp.pdu;
 
-import org.smpp.Data;
+import org.smpp.CommandStatus;
 
 /**
  * optional's parameter's value was requested but the optional parameter
@@ -23,7 +23,7 @@ public class ValueNotSetException extends PDUException {
     private static final long serialVersionUID = -4595064103809398438L;
 
     public ValueNotSetException() {
-        setErrorCode(Data.ESME_RMISSINGOPTPARAM);
+        setErrorCode(CommandStatus.ESME_RMISSINGOPTPARAM.statusValue);
     }
 }
 /*

@@ -1,8 +1,6 @@
 package org.smpp.client;
 
-import org.smpp.Data;
-import org.smpp.Session;
-import org.smpp.TCPIPConnection;
+import org.smpp.*;
 import org.smpp.pdu.*;
 
 import java.io.FileInputStream;
@@ -110,11 +108,8 @@ public class SMPPSender {
     }
 
     /**
-     * Sets global SMPP library debug and event objects.
      * Runs the application.
      *
-     * @see SmppObject#setDebug(Debug)
-     * @see SmppObject#setEvent(Event)
      */
     public static void main(String args[]) {
         // Parse the command line
@@ -226,7 +221,7 @@ public class SMPPSender {
             System.out.println("Bind request " + request.debugString());
             response = session.bind(request);
             System.out.println("Bind response " + response.debugString());
-            if (response.getCommandStatus() == Data.ESME_ROK) {
+            if (response.getCommandStatus() == CommandStatus.ESME_ROK.statusValue) {
                 bound = true;
             } else {
                 System.out.println("Bind failed, code " + response.getCommandStatus());

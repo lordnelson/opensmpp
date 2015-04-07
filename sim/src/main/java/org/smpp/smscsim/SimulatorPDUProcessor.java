@@ -10,8 +10,8 @@
  */
 package org.smpp.smscsim;
 
+import org.smpp.CommandStatus;
 import org.smpp.Data;
-import org.smpp.ErrorCode;
 import org.smpp.SmppObject;
 import org.smpp.debug.Debug;
 import org.smpp.debug.Event;
@@ -164,7 +164,7 @@ public class SimulatorPDUProcessor extends PDUProcessor {
 					if (request.canResponse()) {
 						// get the response
 						response = request.getResponse();
-						response.setCommandStatus(Data.ESME_RINVBNDSTS);
+						response.setCommandStatus(CommandStatus.ESME_RINVBNDSTS.statusValue);
 						// and send it to the client via serverResponse
 						serverResponse(response);
 					} else {
@@ -253,7 +253,7 @@ public class SimulatorPDUProcessor extends PDUProcessor {
 		String match = msisdnErrors.getProperty(request.getDestAddr().getAddress());
 
 		if (match != null) {
-			response.setCommandStatus(ErrorCode.valueOf(match).errorValue);
+			response.setCommandStatus(CommandStatus.valueOf(match).statusValue);
 			error = true;
 		}
 
@@ -308,13 +308,13 @@ public class SimulatorPDUProcessor extends PDUProcessor {
 	 *         passed
 	 */
 	private int checkIdentity(BindRequest request) {
-		int commandStatus = Data.ESME_ROK;
+		int commandStatus = CommandStatus.ESME_ROK.statusValue;
 		Record user = users.find(SYSTEM_ID_ATTR, request.getSystemId());
 		if (user != null) {
 			String password = user.getValue(PASSWORD_ATTR);
 			if (password != null) {
 				if (!request.getPassword().equals(password)) {
-					commandStatus = Data.ESME_RINVPASWD;
+					commandStatus = CommandStatus.ESME_RINVPASWD.statusValue;
 					debug.write("system id " + request.getSystemId() + " not authenticated. Invalid password.");
 					display("not authenticated " + request.getSystemId() + " -- invalid password");
 				} else {
@@ -323,13 +323,13 @@ public class SimulatorPDUProcessor extends PDUProcessor {
 					display("authenticated " + systemId);
 				}
 			} else {
-				commandStatus = Data.ESME_RINVPASWD;
+				commandStatus = CommandStatus.ESME_RINVPASWD.statusValue;
 				debug.write(
 					"system id " + systemId + " not authenticated. " + "Password attribute not found in users file");
 				display("not authenticated " + systemId + " -- no password for user.");
 			}
 		} else {
-			commandStatus = Data.ESME_RINVSYSID;
+			commandStatus = CommandStatus.ESME_RINVSYSID.statusValue;
 			debug.write("system id " + request.getSystemId() + " not authenticated -- not found");
 			display("not authenticated " + request.getSystemId() + " -- user not found");
 		}

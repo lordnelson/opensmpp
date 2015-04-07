@@ -10,7 +10,7 @@
  */
 package org.smpp.pdu;
 
-import org.smpp.Data;
+import org.smpp.CommandStatus;
 
 /**
  * @author Logica Mobile Networks SMPP Open Source Team
@@ -20,6 +20,6 @@ public class TooManyValuesException extends PDUException {
     private static final long serialVersionUID = -2777016699062489252L;
 
     public TooManyValuesException() {
-        setErrorCode(Data.ESME_RINVPARAM);
+        setErrorCode(CommandStatus.ESME_RINVPARAM.statusValue);
     }
 }

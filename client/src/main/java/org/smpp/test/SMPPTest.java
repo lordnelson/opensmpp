@@ -365,7 +365,7 @@ public class SMPPTest {
                 response = session.bind(request);
             }
             System.out.println("Bind response " + response.debugString());
-            if (response.getCommandStatus() == Data.ESME_ROK) {
+            if (response.getCommandStatus() == CommandStatus.ESME_ROK.statusValue) {
                 bound = true;
             }
 

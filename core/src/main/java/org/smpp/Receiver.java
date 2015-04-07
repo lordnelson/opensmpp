@@ -366,17 +366,17 @@ public class Receiver extends ReceiverBase {
             PDU expdu = e.getPDU();
             int seqNr = expdu == null ? 0 : expdu.getSequenceNumber();
             if (automaticNack) {
-                sendGenericNack(Data.ESME_RINVMSGLEN, seqNr);
+                sendGenericNack(CommandStatus.ESME_RINVMSGLEN.statusValue, seqNr);
             } else {
-                pdu = new GenericNack(Data.ESME_RINVMSGLEN, seqNr);
+                pdu = new GenericNack(CommandStatus.ESME_RINVMSGLEN.statusValue, seqNr);
             }
         } catch (UnknownCommandIdException e) {
             // if received unknown pdu, we must send generic nack
             event.write(e, "Receiver.receiveAsync(): Unknown command id.");
             if (automaticNack) {
-                sendGenericNack(Data.ESME_RINVCMDID, e.getSequenceNumber());
+                sendGenericNack(CommandStatus.ESME_RINVCMDID.statusValue, e.getSequenceNumber());
             } else {
-                pdu = new GenericNack(Data.ESME_RINVCMDID, e.getSequenceNumber());
+                pdu = new GenericNack(CommandStatus.ESME_RINVCMDID.statusValue, e.getSequenceNumber());
             }
         } catch (TimeoutException e) {
             // too long had unprocessed data

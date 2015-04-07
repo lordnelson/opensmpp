@@ -10,7 +10,7 @@
  */
 package org.smpp.pdu;
 
-import org.smpp.Data;
+import org.smpp.CommandStatus;
 
 /**
  * @author Logica Mobile Networks SMPP Open Source Team
@@ -23,12 +23,12 @@ public class InvalidPDUException extends PDUException {
     public InvalidPDUException(PDU pdu, Exception e) {
         super(pdu, e);
         underlyingException = e;
-        setErrorCode(Data.ESME_RINVMSGLEN);
+        setErrorCode(CommandStatus.ESME_RINVMSGLEN.statusValue);
     }
 
     public InvalidPDUException(PDU pdu, String s) {
         super(pdu, s);
-        setErrorCode(Data.ESME_RINVMSGLEN);
+        setErrorCode(CommandStatus.ESME_RINVMSGLEN.statusValue);
     }
 
     public String toString() {

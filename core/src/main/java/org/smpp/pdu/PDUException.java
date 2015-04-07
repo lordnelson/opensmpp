@@ -10,7 +10,7 @@
  */
 package org.smpp.pdu;
 
-import org.smpp.Data;
+import org.smpp.CommandStatus;
 import org.smpp.SmppException;
 
 /**
@@ -22,7 +22,7 @@ import org.smpp.SmppException;
 public class PDUException extends SmppException {
     private static final long serialVersionUID = 5174606627714918071L;
     private transient PDU pdu = null;
-    private transient int errorCode = Data.ESME_RUNKNOWNERR;
+    private transient int errorCode = CommandStatus.ESME_RUNKNOWNERR.statusValue;
 
     public PDUException() {
     }

@@ -10,6 +10,7 @@
  */
 package org.smpp.pdu;
 
+import org.smpp.CommandStatus;
 import org.smpp.Data;
 import org.smpp.pdu.tlv.TLV;
 import org.smpp.pdu.tlv.TLVException;
@@ -757,7 +758,7 @@ public abstract class PDU extends ByteData {
      * If the command status of the PDU is ESME_ROK.
      */
     public boolean isOk() {
-        return getCommandStatus() == Data.ESME_ROK;
+        return getCommandStatus() == CommandStatus.ESME_ROK.statusValue;
     }
 
     /**
