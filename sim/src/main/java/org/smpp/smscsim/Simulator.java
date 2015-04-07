@@ -24,6 +24,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Properties;
 
 /**
  * Class <code>Simulator</code> is an application class behaving as a real
@@ -68,7 +69,7 @@ public class Simulator {
     /**
      * Name of file with user (client) authentication information.
      */
-    static String usersFileName = "etc/users.txt";
+    static String usersFileName = "users.txt";
 
     /**
      * Directory for creating of debug and event files.
@@ -85,6 +86,8 @@ public class Simulator {
      */
     static Event event = new FileEvent(dbgDir, "sim.evt");
 
+    static final String msisdnErrorsFilename = "msisdn-errors.properties";
+
     public static final int DSIM = 16;
     public static final int DSIMD = 17;
     public static final int DSIMD2 = 18;
@@ -98,6 +101,7 @@ public class Simulator {
     private ShortMessageStore messageStore = null;
     private DeliveryInfoSender deliveryInfoSender = null;
     private Table users = null;
+    private Properties msisdnErrors;
     private boolean displayInfo = true;
 
     private Simulator() {
@@ -207,8 +211,10 @@ public class Simulator {
             messageStore = new ShortMessageStore();
             deliveryInfoSender = new DeliveryInfoSender();
             deliveryInfoSender.start();
-            users = new Table(usersFileName);
-            factory = new SimulatorPDUProcessorFactory(processors, messageStore, deliveryInfoSender, users);
+            users = new Table(getClass().getClassLoader().getResource(usersFileName).getFile());
+            msisdnErrors = new Properties();
+            msisdnErrors.load(getClass().getClassLoader().getResourceAsStream(msisdnErrorsFilename));
+            factory = new SimulatorPDUProcessorFactory(processors, messageStore, deliveryInfoSender, users, msisdnErrors);
             factory.setDisplayInfo(displayInfo);
             smscListener.setPDUProcessorFactory(factory);
             smscListener.start();

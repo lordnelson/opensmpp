@@ -13,6 +13,8 @@ package org.smpp.smscsim;
 import org.smpp.debug.FileLog;
 import org.smpp.smscsim.util.Table;
 
+import java.util.Properties;
+
 /**
  * Class <code>SimulatorPDUProcessorFactory</code> creates new instances of
  * a <code>SimulatorPDUProcessor</code>. It's passed to <code>SMSCListener</code>
@@ -32,6 +34,7 @@ public class SimulatorPDUProcessorFactory implements PDUProcessorFactory {
     private ShortMessageStore messageStore;
     private DeliveryInfoSender deliveryInfoSender;
     private Table users;
+    private Properties msisdnErrors;
 
     /**
      * If the information about processing has to be printed
@@ -45,19 +48,22 @@ public class SimulatorPDUProcessorFactory implements PDUProcessorFactory {
      * users for authentication. The message store and users parameters are
      * passed to generated instancies of <code>SimulatorPDUProcessor</code>.
      *
-     * @param procGroup    the group the newly generated PDU processors will belong to
-     * @param messageStore the store for messages received from the client
-     * @param users        the list of users used for authenticating of the client
+     * @param procGroup    the group the newly generated PDU processors will belong to.
+     * @param messageStore the store for messages received from the client.
+     * @param users        the list of users used for authenticating of the client.
+     * @param msisdnErrors The list of msisdns containing errors to return for the request msisdn.
      */
     public SimulatorPDUProcessorFactory(
             PDUProcessorGroup procGroup,
             ShortMessageStore messageStore,
             DeliveryInfoSender deliveryInfoSender,
-            Table users) {
+            Table users,
+            Properties msisdnErrors) {
         this.procGroup = procGroup;
         this.messageStore = messageStore;
         this.deliveryInfoSender = deliveryInfoSender;
         this.users = users;
+        this.msisdnErrors = msisdnErrors;
     }
 
     /**
@@ -68,7 +74,7 @@ public class SimulatorPDUProcessorFactory implements PDUProcessorFactory {
      * @return newly created <code>SimulatorPDUProcessor</code>
      */
     public PDUProcessor createPDUProcessor(SMSCSession session) {
-        SimulatorPDUProcessor simPDUProcessor = new SimulatorPDUProcessor(session, messageStore, users);
+        SimulatorPDUProcessor simPDUProcessor = new SimulatorPDUProcessor(session, messageStore, users, msisdnErrors);
         simPDUProcessor.setDisplayInfo(getDisplayInfo());
         simPDUProcessor.setGroup(procGroup);
         simPDUProcessor.setDeliveryInfoSender(deliveryInfoSender);
