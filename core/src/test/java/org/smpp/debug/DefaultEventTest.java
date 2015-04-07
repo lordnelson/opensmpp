@@ -43,7 +43,7 @@ public class DefaultEventTest {
     @Test
     public void testWrite() {
         event.write("HELLO");
-        assertEquals("HELLO\n", out.toString());
+        assertEquals("HELLO" + System.lineSeparator(), out.toString());
     }
 
     @Test
@@ -54,7 +54,7 @@ public class DefaultEventTest {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ex.printStackTrace(new PrintStream(baos));
 
-            String expected = "Exception: " + baos.toString() + " END\n";
+            String expected = "Exception: " + baos.toString() + " END" + System.lineSeparator();
             event.write(ex, "END");
             assertEquals(expected, out.toString());
         }
